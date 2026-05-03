@@ -1,6 +1,7 @@
-// ─── NOVARE RES CHALICE TRACKER DATA ─────────────────────────────────────────
-// Spreadsheet: 90 at Novare (col H) | Draft: 5/2/26 | Bottle: 4/23/26
-// To update: edit this file with new data and push to GitHub
+// NOVARE RES CHALICE TRACKER DATA
+// Drunk count: 92 at Novare (73 named + 19 choices)
+// Draft: 5/2/26 | Bottle: 4/23/26 | Last updated: 5/3/26
+// To update: edit drunk flags and push to GitHub
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
@@ -44,8 +45,8 @@ window.BEERS = [
   { id: 'orono the way life should be', drunk: false },
   { id: 'bissell brothers swish', drunk: false },
   { id: 'mast landing pantless thunder', drunk: true },
-  { id: 'battery steele flume squared', drunk: false, draft: { brewery: 'Battery Steele', style: 'Hazy DIPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.00', ut: 4.2, utUrl: 'https://untappd.com/b/battery-steele-brewing-flume2/2747800' } },
-  { id: 'goodfire ddh prime', drunk: false },
+  { id: 'battery steele flume squared', drunk: true },
+  { id: 'goodfire ddh prime', drunk: true },
   { id: 'northcoast old stock', drunk: false, bottle: { brewery: 'North Coast', style: 'British Barleywine', abvNum: 12.5, abv: '12.5%', sz: '355 ml', price: '$8', ut: 3.9 } },
   { id: 'j.w.lees harvest ale', drunk: false, bottle: { brewery: 'J.W. Lees', style: 'English Barley Wine', abvNum: 11.5, abv: '11.5%', sz: '220 ml', price: '$12', ut: 3.9 } },
   { id: 'de struise clash of the titans', drunk: false, bottle: { brewery: 'De Struise', style: 'BA Barleywine', abvNum: 12.6, abv: '12.6%', sz: '330 ml', price: '$15', ut: 4.1 } },
@@ -171,27 +172,17 @@ window.BEERS = [
 
 window.ALL_CHOICES = [
   { slot: 'Brown Ale Choice', cat: 'Brown', drunk: false, m: [] },
-  { slot: 'Nitro Stout Choice', cat: 'Stout', drunk: false, m: [
-    { n: 'Dieu du Ciel Peche Mortel (Nitro)', b: 'Dieu du Ciel', abv: '9.5%', sz: '8 oz', p: '$10.00', note: 'Imperial coffee stout on nitro', s: 'd', ut: 4.3 },
-    { n: 'North Coast Old Rasputin (Nitro)', b: 'North Coast', abv: '9.0%', sz: '8 oz', p: '$8.00', note: 'Russian imperial stout on nitro', s: 'd', ut: 4.0 },
-  ]},
+  { slot: 'Nitro Stout Choice', cat: 'Stout', drunk: false, m: [{ n: 'Dieu du Ciel Peche Mortel (Nitro)', b: 'Dieu du Ciel', abv: '9.5%', sz: '8 oz', p: '$10.00', note: 'Imperial coffee stout on nitro', s: 'd', ut: 4.3 }, { n: 'North Coast Old Rasputin (Nitro)', b: 'North Coast', abv: '9.0%', sz: '8 oz', p: '$8.00', note: 'Russian imperial stout on nitro', s: 'd', ut: 4.0 }] },
   { slot: 'Oyster Stout Choice', cat: 'Stout', drunk: false, m: [] },
   { slot: 'Special Event Imperial Stout', cat: 'Imperial Stout', drunk: true, m: [] },
-  { slot: 'Bartender Draft - Imp. Stout', cat: 'Imperial Stout', drunk: false, m: [
-    { n: 'De Struise Cuvee Delphine', b: 'De Struise', abv: '13.0%', sz: '8 oz', p: '$11.00', note: 'Black Albert in Bourbon barrels', s: 'd', ut: 4.5 },
-    { n: 'Pohjala Must Kuld', b: 'Pohjala', abv: '7.8%', sz: '8 oz', p: '$10.00', note: 'Baltic porter w/ lactose', s: 'd', ut: 3.9 },
-  ]},
-  { slot: 'Bartender Pkg - Imp. Stout', cat: 'Imperial Stout', drunk: false, m: [
-    { n: 'New Holland Dragons Milk', b: 'New Holland', abv: '11.0%', sz: '12 oz', p: '$9', note: 'BA Imperial Stout (bottle)', s: 'b', ut: 4.0 },
-  ]},
+  { slot: 'Bartender Draft - Imp. Stout', cat: 'Imperial Stout', drunk: false, m: [{ n: 'De Struise Cuvee Delphine', b: 'De Struise', abv: '13.0%', sz: '8 oz', p: '$11.00', note: 'Black Albert in Bourbon barrels', s: 'd', ut: 4.5 }, { n: 'Pohjala Must Kuld', b: 'Pohjala', abv: '7.8%', sz: '8 oz', p: '$10.00', note: 'Baltic porter w/ lactose', s: 'd', ut: 3.9 }] },
+  { slot: 'Bartender Pkg - Imp. Stout', cat: 'Imperial Stout', drunk: false, m: [{ n: 'New Holland Dragons Milk', b: 'New Holland', abv: '11.0%', sz: '12 oz', p: '$9', note: 'BA Imperial Stout (bottle)', s: 'b', ut: 4.0 }] },
   { slot: 'California Common Choice', cat: 'American Retro', drunk: false, m: [] },
   { slot: 'Cream Ale Choice', cat: 'American Retro', drunk: false, m: [] },
   { slot: 'American Porter Choice', cat: 'American Retro', drunk: false, m: [] },
   { slot: 'Pre-Prohibition Lager Choice', cat: 'American Retro', drunk: false, m: [] },
   { slot: 'American Amber Ale Choice', cat: 'American Retro', drunk: false, m: [] },
-  { slot: 'Special Event Pale Ale', cat: 'American Pale', drunk: false, m: [
-    { n: 'Orono/DFH Brew Notes', b: 'Orono/DFH', abv: '7.2%', sz: '16 oz', p: '$9.50', note: '100% Maine IPA on draft', s: 'd', ut: 3.8 },
-  ]},
+  { slot: 'Special Event Pale Ale', cat: 'American Pale', drunk: false, m: [{ n: 'Orono/DFH Brew Notes', b: 'Orono/DFH', abv: '7.2%', sz: '16 oz', p: '$9.50', note: '100% Maine IPA on draft', s: 'd', ut: 3.8 }] },
   { slot: 'Bartender Draft - Pale Ale', cat: 'American Pale', drunk: false, m: [] },
   { slot: 'Bartender Pkg - Pale Ale', cat: 'American Pale', drunk: false, m: [] },
   { slot: 'Nebco Choice', cat: 'American IPA', drunk: false, m: [] },
@@ -202,93 +193,43 @@ window.ALL_CHOICES = [
   { slot: 'The Veil Choice', cat: 'Hazy IPA', drunk: false, m: [] },
   { slot: 'Modestman Choice', cat: 'Hazy IPA', drunk: true, m: [] },
   { slot: 'Other Half Choice', cat: 'Hazy IPA', drunk: true, m: [] },
-  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [
-    { n: 'Trillium Congress Street', b: 'Trillium', abv: '7.2%', sz: '16 oz', p: '$9.50', note: 'Hazy IPA on draft', s: 'd', ut: 4.2 },
-    { n: 'Bissell Nothing Gold', b: 'Bissell Bros', abv: '8.2%', sz: '12 oz', p: '$8.50', note: 'Hazy DIPA on draft', s: 'd', ut: 4.2 },
-  ]},
-  { slot: 'Bartender Draft - Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [
-    { n: 'Trillium Congress Street', b: 'Trillium', abv: '7.2%', sz: '16 oz', p: '$9.50', note: 'Hazy IPA on draft', s: 'd', ut: 4.2 },
-  ]},
+  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [{ n: 'Trillium Congress Street', b: 'Trillium', abv: '7.2%', sz: '16 oz', p: '$9.50', note: 'Hazy IPA on draft', s: 'd', ut: 4.2 }, { n: 'Bissell Nothing Gold', b: 'Bissell Bros', abv: '8.2%', sz: '12 oz', p: '$8.50', note: 'Hazy DIPA on draft', s: 'd', ut: 4.2 }] },
+  { slot: 'Bartender Draft - Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Trillium Congress Street', b: 'Trillium', abv: '7.2%', sz: '16 oz', p: '$9.50', note: 'Hazy IPA on draft', s: 'd', ut: 4.2 }] },
   { slot: 'Bartender Pkg - Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [] },
-  { slot: 'Barreled Souls Grain Wine', cat: 'Barley Wine', drunk: false, m: [
-    { n: 'Liquid Riot/Oxbow Timelapse', b: 'Liquid Riot', abv: '13.0%', sz: '8 oz', p: '$9.00', note: 'Cognac BA barleywine draft', s: 'd', ut: 4.1 },
-  ]},
+  { slot: 'Barreled Souls Grain Wine', cat: 'Barley Wine', drunk: false, m: [{ n: 'Liquid Riot/Oxbow Timelapse', b: 'Liquid Riot', abv: '13.0%', sz: '8 oz', p: '$9.00', note: 'Cognac BA barleywine draft', s: 'd', ut: 4.1 }] },
   { slot: 'Airline Choice (Scottish Nitro)', cat: 'British Styles', drunk: true, m: [] },
   { slot: 'Scotch Ale Choice', cat: 'British Styles', drunk: false, m: [] },
-  { slot: 'Special Event Bitter/Mild', cat: 'British Styles', drunk: false, m: [
-    { n: 'Naiad Maine Mild (Beer Engine!)', b: 'Naiad', abv: '3.5%', sz: '16 oz', p: '$9.50', note: 'English dark mild on cask', s: 'd', ut: 3.7 },
-  ]},
+  { slot: 'Special Event Bitter/Mild', cat: 'British Styles', drunk: false, m: [{ n: 'Naiad Maine Mild (Beer Engine!)', b: 'Naiad', abv: '3.5%', sz: '16 oz', p: '$9.50', note: 'English dark mild on cask', s: 'd', ut: 3.7 }] },
   { slot: 'British Cask Pour Choice', cat: 'British Styles', drunk: true, m: [] },
-  { slot: 'Bartender Draft - British', cat: 'British Styles', drunk: true, m: [
-    { n: 'Naiad Maine Mild (Beer Engine!)', b: 'Naiad', abv: '3.5%', sz: '16 oz', p: '$9.50', note: 'Dark mild on cask', s: 'd', ut: 3.7 },
-  ]},
+  { slot: 'Bartender Draft - British', cat: 'British Styles', drunk: true, m: [{ n: 'Naiad Maine Mild (Beer Engine!)', b: 'Naiad', abv: '3.5%', sz: '16 oz', p: '$9.50', note: 'Dark mild on cask', s: 'd', ut: 3.7 }] },
   { slot: 'Bartender Pkg - British', cat: 'British Styles', drunk: false, m: [] },
   { slot: 'Pale Lukr Choice', cat: 'Pale Lager', drunk: true, m: [] },
-  { slot: 'Special Event Pale Lager', cat: 'Pale Lager', drunk: false, m: [
-    { n: 'Flensburger Pilsener', b: 'Flensburger', abv: '4.8%', sz: '.4 L', p: '$9.00', note: 'Northern German pils on draft', s: 'd', ut: 3.3 },
-    { n: 'Birrificio Italiano Tipopils', b: 'Birr. Italiano', abv: '5.2%', sz: '.3 L', p: '$9.50', note: 'Italian pils on draft', s: 'd', ut: 3.9 },
-    { n: 'St. Georgen Kellerbier', b: 'St. Georgen', abv: '4.9%', sz: '.5 L', p: '$9.50', note: 'Franconian lager on draft', s: 'd', ut: 3.6 },
-  ]},
+  { slot: 'Special Event Pale Lager', cat: 'Pale Lager', drunk: false, m: [{ n: 'Flensburger Pilsener', b: 'Flensburger', abv: '4.8%', sz: '.4 L', p: '$9.00', note: 'Northern German pils on draft', s: 'd', ut: 3.3 }, { n: 'Birrificio Italiano Tipopils', b: 'Birr. Italiano', abv: '5.2%', sz: '.3 L', p: '$9.50', note: 'Italian pils on draft', s: 'd', ut: 3.9 }, { n: 'St. Georgen Kellerbier', b: 'St. Georgen', abv: '4.9%', sz: '.5 L', p: '$9.50', note: 'Franconian lager on draft', s: 'd', ut: 3.6 }] },
   { slot: 'Stichfass Cask Pour', cat: 'Pale Lager', drunk: false, m: [] },
-  { slot: 'Bartender Draft - Pale Lager', cat: 'Pale Lager', drunk: false, m: [
-    { n: 'Flensburger Pilsener', b: 'Flensburger', abv: '4.8%', sz: '.4 L', p: '$9.00', note: 'Northern German pils draft', s: 'd', ut: 3.3 },
-  ]},
+  { slot: 'Bartender Draft - Pale Lager', cat: 'Pale Lager', drunk: false, m: [{ n: 'Flensburger Pilsener', b: 'Flensburger', abv: '4.8%', sz: '.4 L', p: '$9.00', note: 'Northern German pils draft', s: 'd', ut: 3.3 }] },
   { slot: 'Bartender Pkg - Pale Lager', cat: 'Pale Lager', drunk: false, m: [] },
-  { slot: 'Bartender Draft - Dark Lager', cat: 'Dark Lager', drunk: false, m: [
-    { n: 'Schilling Jelen 15', b: 'Schilling', abv: '6.0%', sz: '.5 L', p: '$10.00', note: 'Czech dark special on draft', s: 'd', ut: 3.8 },
-    { n: 'Pohjala Must Kuld', b: 'Pohjala', abv: '7.8%', sz: '8 oz', p: '$10.00', note: 'Baltic porter on draft', s: 'd', ut: 3.9 },
-  ]},
+  { slot: 'Bartender Draft - Dark Lager', cat: 'Dark Lager', drunk: false, m: [{ n: 'Schilling Jelen 15', b: 'Schilling', abv: '6.0%', sz: '.5 L', p: '$10.00', note: 'Czech dark special on draft', s: 'd', ut: 3.8 }, { n: 'Pohjala Must Kuld', b: 'Pohjala', abv: '7.8%', sz: '8 oz', p: '$10.00', note: 'Baltic porter on draft', s: 'd', ut: 3.9 }] },
   { slot: 'Special Event Bock', cat: 'Bock Beers', drunk: true, m: [] },
-  { slot: 'Grodziskie Choice', cat: 'Smokebeers', drunk: false, m: [
-    { n: 'Schlenkerla Fastenbier', b: 'Schlenkerla', abv: '5.9%', sz: '.5 L', p: '$10.00', note: 'Beechwood smoked lager draft', s: 'd', ut: 3.7 },
-  ]},
+  { slot: 'Grodziskie Choice', cat: 'Smokebeers', drunk: false, m: [{ n: 'Schlenkerla Fastenbier', b: 'Schlenkerla', abv: '5.9%', sz: '.5 L', p: '$10.00', note: 'Beechwood smoked lager draft', s: 'd', ut: 3.7 }] },
   { slot: 'Special Event Smokebier', cat: 'Smokebeers', drunk: true, m: [] },
   { slot: 'Bartender Pkg - Belgian Saison', cat: 'Belgian Saison', drunk: false, m: [] },
-  { slot: 'Bartender Draft - Farmhouse', cat: 'Belgian Farmhouse', drunk: false, m: [
-    { n: 'Au Baron/JK Noblesse Oblige', b: 'Au Baron/Jester King', abv: '4.7%', sz: '8 oz', p: '$10.50', note: 'Honey saison on draft', s: 'd', ut: 3.8 },
-  ]},
+  { slot: 'Bartender Draft - Farmhouse', cat: 'Belgian Farmhouse', drunk: false, m: [{ n: 'Au Baron/JK Noblesse Oblige', b: 'Au Baron/Jester King', abv: '4.7%', sz: '8 oz', p: '$10.50', note: 'Honey saison on draft', s: 'd', ut: 3.8 }] },
   { slot: 'Bartender Pkg - Farmhouse', cat: 'Belgian Farmhouse', drunk: false, m: [] },
   { slot: 'Belgian Blonde Choice', cat: 'Belgian Blonde/Pale', drunk: true, m: [] },
   { slot: 'Oud Beersel Choice', cat: 'Belgian Lambic', drunk: true, m: [] },
-  { slot: 'Boon Geuze Choice', cat: 'Belgian Lambic', drunk: true, m: [
-    { n: 'Boon Geuze Selection (draft)', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Draft gueuze from select foeders', s: 'd', ut: 4.0 },
-  ]},
-  { slot: 'Tilquin Wine Grape Choice', cat: 'Belgian Lambic', drunk: false, m: [
-    { n: 'Tilquin Oude Pinot Gris', b: 'Tilquin', abv: '8.4%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Gris (bottle)', s: 'b', ut: 4.2 },
-    { n: 'Tilquin Oude Pinot Noir', b: 'Tilquin', abv: '7.7%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Noir (bottle)', s: 'b', ut: 4.3 },
-  ]},
+  { slot: 'Boon Geuze Choice', cat: 'Belgian Lambic', drunk: true, m: [{ n: 'Boon Geuze Selection (draft)', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Draft gueuze from select foeders', s: 'd', ut: 4.0 }] },
+  { slot: 'Tilquin Wine Grape Choice', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Tilquin Oude Pinot Gris', b: 'Tilquin', abv: '8.4%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Gris (bottle)', s: 'b', ut: 4.2 }, { n: 'Tilquin Oude Pinot Noir', b: 'Tilquin', abv: '7.7%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Noir (bottle)', s: 'b', ut: 4.3 }] },
   { slot: 'Cantillon Fruited Choice', cat: 'Belgian Lambic', drunk: false, m: [] },
-  { slot: 'Special Event Lambic', cat: 'Belgian Lambic', drunk: false, m: [
-    { n: 'Tilquin Airelle Sauvage (draft)', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry lambic draft!', s: 'd', ut: 4.1 },
-  ]},
-  { slot: 'Special Event Fruit Lambic', cat: 'Belgian Lambic', drunk: false, m: [
-    { n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry lambic draft!', s: 'd', ut: 4.1 },
-    { n: 'Drie Fonteinen Kweeper', b: '3 Fonteinen', abv: '5.9%', sz: '750 ml', p: '$65', note: 'Quince lambic (bottle)', s: 'b', ut: 4.3 },
-  ]},
-  { slot: 'Bartender Draft - Lambic', cat: 'Belgian Lambic', drunk: false, m: [
-    { n: 'Boon Geuze Selection', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Draft gueuze', s: 'd', ut: 4.0 },
-    { n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry draft', s: 'd', ut: 4.1 },
-  ]},
+  { slot: 'Special Event Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Tilquin Airelle Sauvage (draft)', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry lambic draft!', s: 'd', ut: 4.1 }] },
+  { slot: 'Special Event Fruit Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry lambic draft!', s: 'd', ut: 4.1 }, { n: 'Drie Fonteinen Kweeper', b: '3 Fonteinen', abv: '5.9%', sz: '750 ml', p: '$65', note: 'Quince lambic (bottle)', s: 'b', ut: 4.3 }] },
+  { slot: 'Bartender Draft - Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Boon Geuze Selection', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Draft gueuze', s: 'd', ut: 4.0 }, { n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '8 oz', p: '$11.00', note: 'Wild lingonberry draft', s: 'd', ut: 4.1 }] },
   { slot: 'Bartender Pkg - Lambic', cat: 'Belgian Lambic', drunk: false, m: [] },
-  { slot: 'Special Event Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [
-    { n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'American spontaneous draft', s: 'd', ut: 3.9 },
-  ]},
-  { slot: 'Bartender Draft - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [
-    { n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'American spontaneous draft', s: 'd', ut: 3.9 },
-  ]},
-  { slot: 'Bartender Pkg - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [
-    { n: 'Russian River Temptation', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Brett Chardonnay (bottle)', s: 'b', ut: 4.1 },
-    { n: 'Russian River Supplication', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Mixed-ferm cherries (bottle)', s: 'b', ut: 4.2 },
-    { n: 'Russian River Beatification', b: 'Russian River', abv: '6.0%', sz: '375 ml', p: '$25', note: 'Spontaneous ale (bottle)', s: 'b', ut: 4.4 },
-  ]},
+  { slot: 'Special Event Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'American spontaneous draft', s: 'd', ut: 3.9 }] },
+  { slot: 'Bartender Draft - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'American spontaneous draft', s: 'd', ut: 3.9 }] },
+  { slot: 'Bartender Pkg - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'Russian River Temptation', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Brett Chardonnay (bottle)', s: 'b', ut: 4.1 }, { n: 'Russian River Supplication', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Mixed-ferm cherries (bottle)', s: 'b', ut: 4.2 }, { n: 'Russian River Beatification', b: 'Russian River', abv: '6.0%', sz: '375 ml', p: '$25', note: 'Spontaneous ale (bottle)', s: 'b', ut: 4.4 }] },
   { slot: 'Fonta Flora Fruit Choice', cat: 'Fruit Beers', drunk: false, m: [] },
-  { slot: 'Oxbow Wine Grape Choice', cat: 'Fruit Beers', drunk: false, m: [
-    { n: 'Oxbow Blue Noir', b: 'Oxbow', abv: '7.0%', sz: '500 ml', p: '$25', note: 'Blueberry + Pinot Noir (bottle)', s: 'b', ut: 3.9 },
-  ]},
-  { slot: 'Special Event Fruited', cat: 'Fruit Beers', drunk: false, m: [
-    { n: 'Allagash Coolship Red (draft)', b: 'Allagash', abv: '5.6%', sz: '8 oz', p: '$10.50', note: 'Spontaneous framboise draft!', s: 'd', ut: 4.2 },
-    { n: 'Koelbus Apricot (draft)', b: 'Koelbus', abv: '6.5%', sz: '8 oz', p: '$9.50', note: 'Spontaneous apricot draft', s: 'd', ut: 4.0 },
-  ]},
+  { slot: 'Oxbow Wine Grape Choice', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Oxbow Blue Noir', b: 'Oxbow', abv: '7.0%', sz: '500 ml', p: '$25', note: 'Blueberry + Pinot Noir (bottle)', s: 'b', ut: 3.9 }] },
+  { slot: 'Special Event Fruited', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Allagash Coolship Red (draft)', b: 'Allagash', abv: '5.6%', sz: '8 oz', p: '$10.50', note: 'Spontaneous framboise draft!', s: 'd', ut: 4.2 }, { n: 'Koelbus Apricot (draft)', b: 'Koelbus', abv: '6.5%', sz: '8 oz', p: '$9.50', note: 'Spontaneous apricot draft', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Draft - Fruit Beer', cat: 'Fruit Beers', drunk: true, m: [] },
   { slot: 'Bartender Pkg - Fruit Beer', cat: 'Fruit Beers', drunk: false, m: [] },
   { slot: 'English Cider Choice', cat: 'Cider', drunk: true, m: [] },
