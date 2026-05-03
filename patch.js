@@ -1,7 +1,12 @@
-// Quick patch: mark battery steele flume squared as drunk
-// This file patches window.BEERS after data.js loads
-// It's loaded BETWEEN data.js and app.js
+// Patches applied on top of data.js
+// Each entry: mark beer as drunk, remove draft/bottle (so it leaves available list)
 (function() {
-  const b = window.BEERS.find(x => x.id === 'battery steele flume squared');
-  if (b) { b.drunk = true; delete b.draft; }
+  var patches = [
+    'battery steele flume squared',
+    'goodfire ddh prime',
+  ];
+  patches.forEach(function(id) {
+    var b = window.BEERS.find(function(x) { return x.id === id; });
+    if (b) { b.drunk = true; delete b.draft; delete b.bottle; }
+  });
 })();
