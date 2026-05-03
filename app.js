@@ -1,0 +1,124 @@
+const { useState, useMemo } = React;
+const { BEERS, ALL_CHOICES, DRAFT_URL, BOTTLE_URL } = window;
+
+const T = 234, BD = BEERS.filter(x => x.drunk).length, CT = ALL_CHOICES.length, CD = ALL_CHOICES.filter(x => x.drunk).length;
+const CR = CT - CD, CM = ALL_CHOICES.filter(x => !x.drunk && x.m && x.m.length > 0).length, TD = BD + CD;
+
+function App() {
+  const [tab, setTab] = useState('chalice');
+  const [cf, setCf] = useState('available');
+  const [lf, setLf] = useState('all');
+  const [q, setQ] = useState('');
+  const [sort, setSort] = useState('abv');
+  const rows = useMemo(() => { const r = []; for (const b of BEERS) { if (b.drunk) continue; if (b.draft) r.push({ id: b.id, src: 'Draft', ...b.draft }); if (b.bottle) r.push({ id: b.id, src: 'Bottle/Can', ...b.bottle }); } return r; }, []);
+  const pn = id => id.replace(/\b\w/g, c => c.toUpperCase());
+  const filt = useMemo(() => { const s = q.toLowerCase(); return rows.filter(r => lf === 'all' || r.src === lf).filter(r => !s || r.id.includes(s) || r.brewery.toLowerCase().includes(s) || r.style.toLowerCase().includes(s)).sort((a, b) => sort === 'ut' ? ((b.ut || 0) - (a.ut || 0)) || a.abvNum - b.abvNum : a.abvNum - b.abvNum); }, [rows, lf, q, sort]);
+  const uc = useMemo(() => new Set(rows.map(r => r.id)).size, [rows]);
+  const pct = Math.round((TD / T) * 100);
+  const vc = useMemo(() => cf === 'available' ? ALL_CHOICES.filter(c => !c.drunk && c.m && c.m.length > 0) : ALL_CHOICES.filter(c => !c.drunk), [cf]);
+  const utLink = (b, n) => 'https://untappd.com/search?q=' + encodeURIComponent(b + ' ' + n);
+  const ts = a => ({ padding: '9px 18px', borderRadius: '8px 8px 0 0', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 'bold', background: a ? '#2a1200' : '#1a0a00', color: a ? '#f5c842' : '#c9a87a', borderBottom: a ? '2px solid #f5c842' : '2px solid transparent' });
+  const sb = (l, v, c) => <div key={l} style={{ flex: '1 1 130px', background: '#2a1200', border: `1px solid ${c}44`, borderRadius: 10, padding: '10px 14px', textAlign: 'center' }}><div style={{ fontSize: 26, fontWeight: 'bold', color: c }}>{v}</div><div style={{ fontSize: 10, color: '#c9a87a', marginTop: 2 }}>{l}</div></div>;
+
+  return (
+    <div style={{ fontFamily: 'Georgia, serif', background: '#1a0a00', minHeight: '100vh', color: '#f5e6c8' }}>
+      <div style={{ background: 'linear-gradient(135deg, #3d1a00, #6b3010)', padding: '18px 24px', borderBottom: '3px solid #c17f3a' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
+          <img src="https://novareresbiercafe.com/wp-content/uploads/novare-brl-wm-cr.png" alt="" style={{ height: 50, flexShrink: 0, filter: 'brightness(1.2)' }} onError={e => { e.target.style.display = 'none'; }} />
+          <div style={{ flex: 1 }}>
+            <h1 style={{ margin: 0, fontSize: 22, color: '#f5c842', letterSpacing: 2, textTransform: 'uppercase' }}>Chalice Tracker</h1>
+            <p style={{ margin: '4px 0 0', color: '#c9a87a', fontSize: 11 }}>
+              <a href={DRAFT_URL} target="_blank" rel="noopener" style={{ color: '#7ab8f5', textDecoration: 'none' }}>Draft 5/2/26</a>
+              {' | '}
+              <a href={BOTTLE_URL} target="_blank" rel="noopener" style={{ color: '#d4a862', textDecoration: 'none' }}>Bottle 4/23/26</a>
+              {' | Spreadsheet: 5/3/26'}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 900, margin: '0 auto', padding: '16px' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>{sb('Total Chalice', T, '#c9a87a')}{sb('Drunk at Novare', TD, '#4caf78')}{sb('Still Needed', T - TD, '#e87040')}{sb('Named Available', uc, '#f5c842')}</div>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>{sb('Choice Slots', CT, '#b07fd4')}{sb('Choices Drunk', CD, '#4caf78')}{sb('Choices Remaining', CR, '#e87040')}{sb('Choices w/ Match', CM, '#f5c842')}</div>
+        <div style={{ marginBottom: 16, background: '#2a1200', borderRadius: 10, padding: '12px 16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, fontSize: 12, color: '#c9a87a' }}><span>Progress: {TD}/234 ({BD} named + {CD} choices)</span><span>{pct}%</span></div>
+          <div style={{ background: '#3d1a00', borderRadius: 20, height: 14, overflow: 'hidden' }}><div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg, #c17f3a, #f5c842)', borderRadius: 20 }} /></div>
+        </div>
+        <div style={{ background: '#1a2a3a', border: '1px solid #4a90d9', borderRadius: 10, padding: '9px 14px', marginBottom: 14, fontSize: 12, color: '#a8c8e8' }}>
+          <strong>Draft 5/2/26!</strong> Maine Beer Dinner, Allagash Coolship Red, Tilquin Airelle Sauvage, Boon Geuze Selection, De Struise Cuvee Delphine, Battery Steele Flume, Trillium Congress Street, Bissell Nothing Gold + Flensburger Pils on draft!
+        </div>
+        <div style={{ display: 'flex', gap: 3, borderBottom: '2px solid #3d1a00', marginBottom: 0 }}>
+          <button style={ts(tab === 'chalice')} onClick={() => setTab('chalice')}>Chalice Beers ({uc} available)</button>
+          <button style={ts(tab === 'choices')} onClick={() => setTab('choices')}>Choices ({CM} w/ match / {CR} remaining)</button>
+        </div>
+        {tab === 'chalice' && (
+          <div style={{ background: '#2a1200', borderRadius: '0 8px 8px 8px', padding: '14px' }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search beer, brewery, or style..." style={{ flex: '1 1 180px', padding: '7px 12px', borderRadius: 8, border: '1px solid #6b3010', background: '#1a0a00', color: '#f5e6c8', fontSize: 12, outline: 'none' }} />
+              {['all', 'Draft', 'Bottle/Can'].map(f => <button key={f} onClick={() => setLf(f)} style={{ padding: '7px 14px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 'bold', background: lf === f ? '#c17f3a' : '#3d1a00', color: lf === f ? '#fff' : '#c9a87a' }}>{f === 'all' ? 'All' : f}</button>)}
+              <span style={{ width: 1, background: '#3d1a00', margin: '0 2px' }} />
+              {[['abv', 'ABV ↑'], ['ut', '★ Rating ↓']].map(([v, l]) => <button key={v} onClick={() => setSort(v)} style={{ padding: '7px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 'bold', background: sort === v ? '#4a3a10' : '#3d1a00', color: sort === v ? '#f5c842' : '#8a6a4a' }}>{l}</button>)}
+            </div>
+            <p style={{ color: '#c9a87a', fontSize: 11, marginBottom: 10 }}><strong style={{ color: '#f5c842' }}>{filt.length}</strong> entries — sorted by {sort === 'ut' ? 'Untappd rating' : 'ABV'} — tap ★ for Untappd</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {filt.map((o, i) => (
+                <div key={i} style={{ background: '#1a0a00', borderLeft: `4px solid ${o.src === 'Draft' ? '#4a90d9' : '#c17f3a'}`, border: `1px solid ${o.src === 'Draft' ? '#4a90d922' : '#c17f3a22'}`, borderRadius: 7, padding: '9px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <div style={{ flex: '1 1 180px' }}>
+                    <div style={{ fontWeight: 'bold', fontSize: 13, color: '#f5e6c8' }}>{pn(o.id)}</div>
+                    <div style={{ fontSize: 11, color: '#c9a87a', marginTop: 1 }}>{o.brewery} — {o.style}</div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                    {o.ut && <a href={o.utUrl || utLink(o.brewery, o.id)} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: 2, textDecoration: 'none', background: o.ut >= 4.3 ? '#3a2a00' : '#2a1200', borderRadius: 4, padding: '2px 6px' }}><span style={{ color: o.ut >= 4.3 ? '#f5c842' : o.ut >= 3.8 ? '#c9a87a' : '#8a6a4a', fontSize: 10, fontWeight: 'bold' }}>★ {o.ut.toFixed(1)}</span></a>}
+                    <span style={{ background: o.src === 'Draft' ? '#1a3a5a' : '#3a2800', color: o.src === 'Draft' ? '#7ab8f5' : '#d4a862', borderRadius: 4, padding: '2px 8px', fontSize: 10, fontWeight: 'bold' }}>{o.src === 'Draft' ? 'DRAFT' : 'BOTTLE'}</span>
+                    <span style={{ color: '#f5c842', fontWeight: 'bold', fontSize: 12 }}>{o.abv}</span>
+                    <span style={{ color: '#c9a87a', fontSize: 11 }}>{o.sz}</span>
+                    <span style={{ color: '#4caf78', fontSize: 12, fontWeight: 'bold' }}>{o.price}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {tab === 'choices' && (
+          <div style={{ background: '#2a1200', borderRadius: '0 8px 8px 8px', padding: '14px' }}>
+            <div style={{ background: '#1a2a3a', border: '1px solid #4a90d9', borderRadius: 9, padding: '9px 13px', marginBottom: 12, fontSize: 12, color: '#a8c8e8' }}><strong style={{ color: '#7ab8f5' }}>{CT} Choice Slots:</strong> {CD} drunk / {CR} remaining / <strong style={{ color: '#f5c842' }}>{CM} with a match now</strong></div>
+            <div style={{ display: 'flex', gap: 7, marginBottom: 12 }}>{[['available', `Has Match (${CM})`], ['all', `All Remaining (${CR})`]].map(([v, l]) => <button key={v} onClick={() => setCf(v)} style={{ padding: '6px 13px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 'bold', background: cf === v ? '#c17f3a' : '#3d1a00', color: cf === v ? '#fff' : '#c9a87a' }}>{l}</button>)}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+              {vc.map((a, i) => (
+                <div key={i} style={{ background: '#1a0a00', border: `1px solid ${a.m.length > 0 ? '#4a90d9' : '#3d1a00'}`, borderRadius: 9, overflow: 'hidden' }}>
+                  <div style={{ background: a.m.length > 0 ? '#1a2a3a' : '#251200', padding: '8px 13px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6 }}>
+                    <div><span style={{ fontWeight: 'bold', color: '#f5c842', fontSize: 12 }}>{a.slot}</span><span style={{ marginLeft: 7, fontSize: 10, color: '#c9a87a', background: '#2a1200', padding: '1px 6px', borderRadius: 3 }}>{a.cat}</span></div>
+                    {a.m.length > 0 ? <span style={{ background: '#4caf78', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10, fontWeight: 'bold' }}>{a.m.length} match{a.m.length > 1 ? 'es' : ''}</span> : <span style={{ background: '#3d1a00', color: '#c9a87a', borderRadius: 4, padding: '2px 8px', fontSize: 10 }}>no match</span>}
+                  </div>
+                  {a.m.length > 0 && <div style={{ padding: '9px 13px', display: 'flex', flexDirection: 'column', gap: 7 }}>
+                    {a.m.map((x, j) => (
+                      <div key={j} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap', borderBottom: j < a.m.length - 1 ? '1px solid #2a1200' : 'none', paddingBottom: j < a.m.length - 1 ? 7 : 0 }}>
+                        <div style={{ flex: '1 1 160px' }}><div style={{ fontWeight: 'bold', fontSize: 12, color: '#f5e6c8' }}>{x.n}</div><div style={{ fontSize: 10, color: '#c9a87a', marginTop: 1 }}>{x.b}</div><div style={{ fontSize: 10, color: '#8ab8a8', marginTop: 2, fontStyle: 'italic' }}>{x.note}</div></div>
+                        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                          {x.ut && <a href={utLink(x.b, x.n)} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: 2, textDecoration: 'none', background: x.ut >= 4.3 ? '#3a2a00' : '#2a1200', borderRadius: 4, padding: '2px 6px' }}><span style={{ color: x.ut >= 4.3 ? '#f5c842' : x.ut >= 3.8 ? '#c9a87a' : '#8a6a4a', fontSize: 10, fontWeight: 'bold' }}>★ {x.ut.toFixed(1)}</span></a>}
+                          <span style={{ background: x.s === 'd' ? '#1a3a5a' : '#3a2800', color: x.s === 'd' ? '#7ab8f5' : '#d4a862', borderRadius: 4, padding: '2px 7px', fontSize: 10, fontWeight: 'bold' }}>{x.s === 'd' ? 'DRAFT' : 'BOTTLE'}</span>
+                          <span style={{ color: '#f5c842', fontWeight: 'bold', fontSize: 11 }}>{x.abv}</span><span style={{ color: '#c9a87a', fontSize: 10 }}>{x.sz}</span><span style={{ color: '#4caf78', fontSize: 11, fontWeight: 'bold' }}>{x.p}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 14, padding: '10px 13px', background: '#1a0a00', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Choice matches are style-based suggestions. Always confirm with your bartender!</div>
+          </div>
+        )}
+        <div style={{ marginTop: 12, padding: '10px 13px', background: '#2a1200', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Only spreadsheet-eligible beers shown. Confirm availability with staff.</div>
+        <div style={{ marginTop: 16, padding: '12px 16px', background: '#2a1200', borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><img src="https://novareresbiercafe.com/wp-content/uploads/novare-logo-ft-cr@2x.png" alt="" style={{ height: 30, opacity: 0.7 }} onError={e => { e.target.style.display = 'none'; }} /><span style={{ fontSize: 10, color: '#6b4020' }}>4 Canal Plaza · Portland, ME 04101 · (207) 761-2437</span></div>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <a href={DRAFT_URL} target="_blank" rel="noopener" style={{ fontSize: 10, color: '#7ab8f5', textDecoration: 'none' }}>Draft PDF</a>
+            <a href={BOTTLE_URL} target="_blank" rel="noopener" style={{ fontSize: 10, color: '#d4a862', textDecoration: 'none' }}>Bottle PDF</a>
+            <a href="https://novareresbiercafe.com" target="_blank" rel="noopener" style={{ fontSize: 10, color: '#c17f3a', textDecoration: 'none' }}>novareresbiercafe.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
