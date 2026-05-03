@@ -1,7 +1,6 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 92 at Novare (73 named + 19 choices)
+// Drunk count: 90 at Novare (71 named + 19 choices)
 // Draft: 5/2/26 | Bottle: 4/23/26 | Last updated: 5/3/26
-// To update: edit drunk flags and push to GitHub
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
@@ -45,8 +44,8 @@ window.BEERS = [
   { id: 'orono the way life should be', drunk: false },
   { id: 'bissell brothers swish', drunk: false },
   { id: 'mast landing pantless thunder', drunk: true },
-  { id: 'battery steele flume squared', drunk: true },
-  { id: 'goodfire ddh prime', drunk: true },
+  { id: 'battery steele flume squared', drunk: false, draft: { brewery: 'Battery Steele', style: 'Hazy DIPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.00', ut: 4.2, utUrl: 'https://untappd.com/b/battery-steele-brewing-flume2/2747800' } },
+  { id: 'goodfire ddh prime', drunk: false },
   { id: 'northcoast old stock', drunk: false, bottle: { brewery: 'North Coast', style: 'British Barleywine', abvNum: 12.5, abv: '12.5%', sz: '355 ml', price: '$8', ut: 3.9 } },
   { id: 'j.w.lees harvest ale', drunk: false, bottle: { brewery: 'J.W. Lees', style: 'English Barley Wine', abvNum: 11.5, abv: '11.5%', sz: '220 ml', price: '$12', ut: 3.9 } },
   { id: 'de struise clash of the titans', drunk: false, bottle: { brewery: 'De Struise', style: 'BA Barleywine', abvNum: 12.6, abv: '12.6%', sz: '330 ml', price: '$15', ut: 4.1 } },
