@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Chalice">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<style>* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: Georgia, serif; background: #1a0a00; color: #f5e6c8; -webkit-font-smoothing: antialiased; }</style>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; } body { font-family: Georgia, serif; background: #1a0a00; color: #f5e6c8; -webkit-font-smoothing: antialiased; } input, button, textarea { font-family: inherit; }</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
@@ -20,56 +20,201 @@
 <div id="root"></div>
 <script src="data.js"></script>
 <script type="text/babel" data-type="module">
-const { useState, useMemo } = React;
+const { useState, useMemo, useEffect, useCallback } = React;
 const { BEERS, ALL_CHOICES, DRAFT_URL, BOTTLE_URL, DRAFT_DATE, BOTTLE_DATE, SHEET_DATE, BOTTLE_FIRST_SEEN } = window;
 
-// Official chalice total per the Uprising rules
 const T = 234;
-const BD = BEERS.filter(x => x.drunk).length, CT = ALL_CHOICES.length, CD = ALL_CHOICES.filter(x => x.drunk).length;
-const CR = CT - CD, CM = ALL_CHOICES.filter(x => !x.drunk && x.m && x.m.length > 0).length, TD = BD + CD;
+const STORAGE_KEY = 'nrct_drunk_overrides';
+const STORAGE_VERSION = 1;
+const CURRENT_YEAR = new Date().getFullYear();
 
-// NEW badge: bottle first seen within the last 30 days
+// ---------- localStorage helpers (with reconciliation) ----------
+function loadOverrides() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { version: STORAGE_VERSION, named: {}, choices: {} };
+    const parsed = JSON.parse(raw);
+    return {
+      version: STORAGE_VERSION,
+      named: parsed.named || {},
+      choices: parsed.choices || {}
+    };
+  } catch (e) {
+    console.warn('Failed to load overrides:', e);
+    return { version: STORAGE_VERSION, named: {}, choices: {} };
+  }
+}
+
+function saveOverrides(o) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(o)); }
+  catch (e) { console.warn('Failed to save overrides:', e); }
+}
+
+// Reconcile: drop any overrides where data.js already shows the beer as drunk.
+// This is what makes a fresh data.js push (from the spreadsheet) auto-clean local state.
+function reconcileOverrides(o) {
+  const drunkNamed = new Set(BEERS.filter(b => b.drunk).map(b => b.id));
+  const drunkChoices = new Set(ALL_CHOICES.filter(c => c.drunk).map(c => c.slot));
+  const named = {};
+  const choices = {};
+  for (const [id, rec] of Object.entries(o.named || {})) {
+    if (!drunkNamed.has(id)) named[id] = rec;
+  }
+  for (const [slot, rec] of Object.entries(o.choices || {})) {
+    if (!drunkChoices.has(slot)) choices[slot] = rec;
+  }
+  return { version: STORAGE_VERSION, named, choices };
+}
+
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// ---------- NEW badge ----------
 const NOW = new Date();
-const isNew = (id) => {
+const isNewBottle = (id) => {
   const seen = BOTTLE_FIRST_SEEN && BOTTLE_FIRST_SEEN[id];
   if (!seen) return false;
-  const d = new Date(seen);
-  const days = (NOW - d) / (1000 * 60 * 60 * 24);
-  return days <= 30;
+  return (NOW - new Date(seen)) / (1000 * 60 * 60 * 24) <= 30;
 };
 
+// ---------- App ----------
 function App() {
   const [tab, setTab] = useState('chalice');
   const [cf, setCf] = useState('available');
   const [lf, setLf] = useState('all');
   const [q, setQ] = useState('');
   const [sort, setSort] = useState('abv');
+  const [overrides, setOverrides] = useState(() => reconcileOverrides(loadOverrides()));
+  const [logFor, setLogFor] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [showPending, setShowPending] = useState(true);
+
+  // Persist on every change
+  useEffect(() => { saveOverrides(overrides); }, [overrides]);
+
+  // Compute "effective drunk" = data.js drunk OR locally overridden
+  const isNamedDrunk = useCallback((id) => {
+    const b = BEERS.find(x => x.id === id);
+    return (b && b.drunk) || !!overrides.named[id];
+  }, [overrides]);
+
+  const isChoiceDrunk = useCallback((slot) => {
+    const c = ALL_CHOICES.find(x => x.slot === slot);
+    return (c && c.drunk) || !!overrides.choices[slot];
+  }, [overrides]);
+
+  // Counts factor in overrides
+  const BD = useMemo(() => BEERS.filter(b => isNamedDrunk(b.id)).length, [overrides]);
+  const CD = useMemo(() => ALL_CHOICES.filter(c => isChoiceDrunk(c.slot)).length, [overrides]);
+  const CT = ALL_CHOICES.length;
+  const CR = CT - CD;
+  const TD = BD + CD;
+  const CM = useMemo(() => ALL_CHOICES.filter(c => !isChoiceDrunk(c.slot) && c.m && c.m.length > 0).length, [overrides]);
+  const pendingCount = Object.keys(overrides.named).length + Object.keys(overrides.choices).length;
+
   const rows = useMemo(() => {
     const r = [];
     for (const b of BEERS) {
-      if (b.drunk) continue;
+      if (isNamedDrunk(b.id)) continue;
       if (b.draft) r.push({ id: b.id, src: 'Draft', isNew: false, ...b.draft });
-      if (b.bottle) r.push({ id: b.id, src: 'Bottle/Can', isNew: isNew(b.id), ...b.bottle });
+      if (b.bottle) r.push({ id: b.id, src: 'Bottle/Can', isNew: isNewBottle(b.id), ...b.bottle });
     }
     return r;
-  }, []);
+  }, [overrides]);
+
   const pn = id => id.replace(/\b\w/g, c => c.toUpperCase());
+
   const filt = useMemo(() => {
     const s = q.toLowerCase();
     return rows.filter(r => lf === 'all' || r.src === lf)
       .filter(r => !s || r.id.includes(s) || r.brewery.toLowerCase().includes(s) || r.style.toLowerCase().includes(s))
       .sort((a, b) => sort === 'ut' ? ((b.ut || 0) - (a.ut || 0)) || a.abvNum - b.abvNum : a.abvNum - b.abvNum);
   }, [rows, lf, q, sort]);
+
   const uc = useMemo(() => new Set(rows.map(r => r.id)).size, [rows]);
   const newCount = useMemo(() => rows.filter(r => r.isNew).length, [rows]);
   const pct = Math.round((TD / T) * 100);
-  const vc = useMemo(() => cf === 'available' ? ALL_CHOICES.filter(c => !c.drunk && c.m && c.m.length > 0) : ALL_CHOICES.filter(c => !c.drunk), [cf]);
+  const vc = useMemo(() =>
+    cf === 'available'
+      ? ALL_CHOICES.filter(c => !isChoiceDrunk(c.slot) && c.m && c.m.length > 0)
+      : ALL_CHOICES.filter(c => !isChoiceDrunk(c.slot)),
+    [cf, overrides]);
+
   const utLink = (b, n) => 'https://untappd.com/search?q=' + encodeURIComponent(b + ' ' + n);
+
+  // ---------- Actions ----------
+  const markDrunk = (kind, idOrSlot, year, rating, notes, actualBeer) => {
+    const rec = {
+      year: parseInt(year, 10) || CURRENT_YEAR,
+      date: todayISO(),
+      rating: rating ? parseFloat(rating) : null,
+      notes: notes || ''
+    };
+    if (kind === 'choice') rec.actual_beer = actualBeer || '';
+    setOverrides(o => {
+      const next = { ...o };
+      if (kind === 'named') next.named = { ...o.named, [idOrSlot]: rec };
+      else next.choices = { ...o.choices, [idOrSlot]: rec };
+      return next;
+    });
+    const label = kind === 'named' ? pn(idOrSlot) : idOrSlot;
+    setToast({
+      msg: `✓ Marked "${label}" as drunk`,
+      undo: () => {
+        setOverrides(o => {
+          const next = { ...o };
+          if (kind === 'named') { const m = { ...o.named }; delete m[idOrSlot]; next.named = m; }
+          else { const m = { ...o.choices }; delete m[idOrSlot]; next.choices = m; }
+          return next;
+        });
+        setToast(null);
+      }
+    });
+    setLogFor(null);
+    setTimeout(() => setToast(t => (t && t.msg.includes(label)) ? null : t), 6000);
+  };
+
+  const clearOverride = (kind, key) => {
+    setOverrides(o => {
+      const next = { ...o };
+      if (kind === 'named') { const m = { ...o.named }; delete m[key]; next.named = m; }
+      else { const m = { ...o.choices }; delete m[key]; next.choices = m; }
+      return next;
+    });
+  };
+
+  const clearAllOverrides = () => {
+    if (confirm(`Clear all ${pendingCount} pending local entries? Use this once they're in the spreadsheet.`)) {
+      setOverrides({ version: STORAGE_VERSION, named: {}, choices: {} });
+    }
+  };
+
+  const copyPendingTSV = async () => {
+    const lines = ['Type\tBeer/Slot\tYear\tDate\tRating\tNotes\tActual Beer'];
+    for (const [id, r] of Object.entries(overrides.named)) {
+      lines.push(['Named', pn(id), r.year, r.date, r.rating == null ? '' : r.rating, r.notes, ''].join('\t'));
+    }
+    for (const [slot, r] of Object.entries(overrides.choices)) {
+      lines.push(['Choice', slot, r.year, r.date, r.rating == null ? '' : r.rating, r.notes, r.actual_beer || ''].join('\t'));
+    }
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'));
+      setToast({ msg: `✓ Copied ${pendingCount} entries as TSV — paste into spreadsheet` });
+      setTimeout(() => setToast(null), 4000);
+    } catch (e) {
+      alert('Clipboard blocked. Here it is:\n\n' + lines.join('\n'));
+    }
+  };
+
+  // ---------- Style helpers ----------
   const ts = a => ({ padding: '9px 18px', borderRadius: '8px 8px 0 0', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 'bold', background: a ? '#2a1200' : '#1a0a00', color: a ? '#f5c842' : '#c9a87a', borderBottom: a ? '2px solid #f5c842' : '2px solid transparent' });
   const sb = (l, v, c) => <div key={l} style={{ flex: '1 1 130px', background: '#2a1200', border: `1px solid ${c}44`, borderRadius: 10, padding: '10px 14px', textAlign: 'center' }}><div style={{ fontSize: 26, fontWeight: 'bold', color: c }}>{v}</div><div style={{ fontSize: 10, color: '#c9a87a', marginTop: 2 }}>{l}</div></div>;
+  const btnDrunk = { background: '#4caf78', color: '#000', border: 'none', borderRadius: 4, padding: '4px 10px', fontSize: 10, fontWeight: 'bold', cursor: 'pointer', letterSpacing: 0.3 };
 
   return (
-    <div style={{ fontFamily: 'Georgia, serif', background: '#1a0a00', minHeight: '100vh', color: '#f5e6c8' }}>
+    <div style={{ fontFamily: 'Georgia, serif', background: '#1a0a00', minHeight: '100vh', color: '#f5e6c8', paddingBottom: toast ? 70 : 0 }}>
       <div style={{ background: 'linear-gradient(135deg, #3d1a00, #6b3010)', padding: '18px 24px', borderBottom: '3px solid #c17f3a' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16 }}>
           <img src="https://novareresbiercafe.com/wp-content/uploads/novare-brl-wm-cr.png" alt="" style={{ height: 50, flexShrink: 0, filter: 'brightness(1.2)' }} onError={e => { e.target.style.display = 'none'; }} />
@@ -85,10 +230,50 @@ function App() {
         </div>
       </div>
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '16px' }}>
+
+        {pendingCount > 0 && (
+          <div style={{ marginBottom: 14, background: '#2a2a10', border: '1px solid #f5c842', borderRadius: 10, overflow: 'hidden' }}>
+            <div style={{ padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, cursor: 'pointer' }} onClick={() => setShowPending(!showPending)}>
+              <div style={{ fontSize: 12, color: '#f5c842', fontWeight: 'bold' }}>
+                ⚠ {pendingCount} beer{pendingCount > 1 ? 's' : ''} logged locally — not yet in spreadsheet {showPending ? '▾' : '▸'}
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button onClick={e => { e.stopPropagation(); copyPendingTSV(); }} style={{ background: '#4caf78', color: '#000', border: 'none', borderRadius: 5, padding: '5px 10px', fontSize: 10, fontWeight: 'bold', cursor: 'pointer' }}>Copy as TSV</button>
+                <button onClick={e => { e.stopPropagation(); clearAllOverrides(); }} style={{ background: '#3d1a00', color: '#c9a87a', border: '1px solid #6b3010', borderRadius: 5, padding: '5px 10px', fontSize: 10, fontWeight: 'bold', cursor: 'pointer' }}>Clear all</button>
+              </div>
+            </div>
+            {showPending && (
+              <div style={{ padding: '0 14px 12px', display: 'flex', flexDirection: 'column', gap: 5 }}>
+                {Object.entries(overrides.named).map(([id, r]) => (
+                  <div key={id} style={{ background: '#1a0a00', borderRadius: 5, padding: '6px 10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: 11 }}>
+                    <div style={{ flex: '1 1 200px' }}>
+                      <span style={{ color: '#f5e6c8', fontWeight: 'bold' }}>{pn(id)}</span>
+                      <span style={{ color: '#8a6a4a', marginLeft: 8 }}>{r.year}{r.rating ? ` • ★${r.rating}` : ''}{r.notes ? ` • ${r.notes}` : ''}</span>
+                    </div>
+                    <button onClick={() => clearOverride('named', id)} style={{ background: 'transparent', color: '#8a6a4a', border: '1px solid #3d1a00', borderRadius: 4, padding: '2px 7px', fontSize: 10, cursor: 'pointer' }}>✕</button>
+                  </div>
+                ))}
+                {Object.entries(overrides.choices).map(([slot, r]) => (
+                  <div key={slot} style={{ background: '#1a0a00', borderRadius: 5, padding: '6px 10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: 11 }}>
+                    <div style={{ flex: '1 1 200px' }}>
+                      <span style={{ color: '#f5e6c8', fontWeight: 'bold' }}>[Choice] {slot}</span>
+                      <span style={{ color: '#8a6a4a', marginLeft: 8 }}>{r.year}{r.actual_beer ? ` → ${r.actual_beer}` : ''}{r.rating ? ` • ★${r.rating}` : ''}{r.notes ? ` • ${r.notes}` : ''}</span>
+                    </div>
+                    <button onClick={() => clearOverride('choice', slot)} style={{ background: 'transparent', color: '#8a6a4a', border: '1px solid #3d1a00', borderRadius: 4, padding: '2px 7px', fontSize: 10, cursor: 'pointer' }}>✕</button>
+                  </div>
+                ))}
+                <div style={{ fontSize: 10, color: '#6b4020', marginTop: 6, lineHeight: 1.4 }}>
+                  These entries are stored only in this browser. After updating the spreadsheet, they'll auto-clear next time a fresh <code style={{ background: '#1a0a00', padding: '1px 4px', borderRadius: 3 }}>data.js</code> is pushed. Or hit "Clear all" once they're synced.
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>{sb('Total Chalice', T, '#c9a87a')}{sb('Drunk at Novare', TD, '#4caf78')}{sb('Still Needed', T - TD, '#e87040')}{sb('Named Available', uc, '#f5c842')}</div>
         <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>{sb('Choice Slots', CT, '#b07fd4')}{sb('Choices Drunk', CD, '#4caf78')}{sb('Choices Remaining', CR, '#e87040')}{sb('Choices w/ Match', CM, '#f5c842')}</div>
         <div style={{ marginBottom: 16, background: '#2a1200', borderRadius: 10, padding: '12px 16px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, fontSize: 12, color: '#c9a87a' }}><span>Progress: {TD}/{T} ({BD} named + {CD} choices)</span><span>{pct}%</span></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, fontSize: 12, color: '#c9a87a' }}><span>Progress: {TD}/{T} ({BD} named + {CD} choices){pendingCount > 0 ? ` • +${pendingCount} pending` : ''}</span><span>{pct}%</span></div>
           <div style={{ background: '#3d1a00', borderRadius: 20, height: 14, overflow: 'hidden' }}><div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg, #c17f3a, #f5c842)', borderRadius: 20 }} /></div>
         </div>
         <div style={{ background: '#1a2a3a', border: '1px solid #4a90d9', borderRadius: 10, padding: '9px 14px', marginBottom: 14, fontSize: 12, color: '#a8c8e8' }}>
@@ -111,7 +296,7 @@ function App() {
               <span style={{ width: 1, background: '#3d1a00', margin: '0 2px' }} />
               {[['abv', 'ABV ↑'], ['ut', '★ Rating ↓']].map(([v, l]) => <button key={v} onClick={() => setSort(v)} style={{ padding: '7px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 'bold', background: sort === v ? '#4a3a10' : '#3d1a00', color: sort === v ? '#f5c842' : '#8a6a4a' }}>{l}</button>)}
             </div>
-            <p style={{ color: '#c9a87a', fontSize: 11, marginBottom: 10 }}><strong style={{ color: '#f5c842' }}>{filt.length}</strong> entries — sorted by {sort === 'ut' ? 'Untappd rating' : 'ABV'} — tap ★ for Untappd</p>
+            <p style={{ color: '#c9a87a', fontSize: 11, marginBottom: 10 }}><strong style={{ color: '#f5c842' }}>{filt.length}</strong> entries — sorted by {sort === 'ut' ? 'Untappd rating' : 'ABV'} — tap ★ for Untappd, tap ✓ when you drink it</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {filt.map((o, i) => (
                 <div key={i} style={{ background: '#1a0a00', borderLeft: `4px solid ${o.src === 'Draft' ? '#4a90d9' : '#c17f3a'}`, border: `1px solid ${o.src === 'Draft' ? '#4a90d922' : '#c17f3a22'}`, borderRadius: 7, padding: '9px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
@@ -128,6 +313,7 @@ function App() {
                     <span style={{ color: '#f5c842', fontWeight: 'bold', fontSize: 12 }}>{o.abv}</span>
                     <span style={{ color: '#c9a87a', fontSize: 11 }}>{o.sz}</span>
                     <span style={{ color: '#4caf78', fontSize: 12, fontWeight: 'bold' }}>{o.price}</span>
+                    <button onClick={() => setLogFor({ kind: 'named', id: o.id, name: pn(o.id), suggested: '' })} style={btnDrunk}>✓ DRUNK</button>
                   </div>
                 </div>
               ))}
@@ -143,7 +329,10 @@ function App() {
                 <div key={i} style={{ background: '#1a0a00', border: `1px solid ${a.m.length > 0 ? '#4a90d9' : '#3d1a00'}`, borderRadius: 9, overflow: 'hidden' }}>
                   <div style={{ background: a.m.length > 0 ? '#1a2a3a' : '#251200', padding: '8px 13px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6 }}>
                     <div><span style={{ fontWeight: 'bold', color: '#f5c842', fontSize: 12 }}>{a.slot}</span><span style={{ marginLeft: 7, fontSize: 10, color: '#c9a87a', background: '#2a1200', padding: '1px 6px', borderRadius: 3 }}>{a.cat}</span></div>
-                    {a.m.length > 0 ? <span style={{ background: '#4caf78', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10, fontWeight: 'bold' }}>{a.m.length} match{a.m.length > 1 ? 'es' : ''}</span> : <span style={{ background: '#3d1a00', color: '#c9a87a', borderRadius: 4, padding: '2px 8px', fontSize: 10 }}>no match</span>}
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                      {a.m.length > 0 ? <span style={{ background: '#4caf78', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10, fontWeight: 'bold' }}>{a.m.length} match{a.m.length > 1 ? 'es' : ''}</span> : <span style={{ background: '#3d1a00', color: '#c9a87a', borderRadius: 4, padding: '2px 8px', fontSize: 10 }}>no match</span>}
+                      <button onClick={() => setLogFor({ kind: 'choice', id: a.slot, name: a.slot, suggested: a.m && a.m[0] ? a.m[0].n : '' })} style={btnDrunk}>✓ DRUNK</button>
+                    </div>
                   </div>
                   {a.m.length > 0 && <div style={{ padding: '9px 13px', display: 'flex', flexDirection: 'column', gap: 7 }}>
                     {a.m.map((x, j) => (
@@ -163,7 +352,7 @@ function App() {
             <div style={{ marginTop: 14, padding: '10px 13px', background: '#1a0a00', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Choice matches are style-based suggestions. Always confirm with your bartender!</div>
           </div>
         )}
-        <div style={{ marginTop: 12, padding: '10px 13px', background: '#2a1200', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Only spreadsheet-eligible beers shown. Confirm availability with staff.</div>
+        <div style={{ marginTop: 12, padding: '10px 13px', background: '#2a1200', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Only spreadsheet-eligible beers shown. Confirm availability with staff. Local "drunk" marks are saved on this device only — sync to the spreadsheet to keep them.</div>
         <div style={{ marginTop: 16, padding: '12px 16px', background: '#2a1200', borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><img src="https://novareresbiercafe.com/wp-content/uploads/novare-logo-ft-cr@2x.png" alt="" style={{ height: 30, opacity: 0.7 }} onError={e => { e.target.style.display = 'none'; }} /><span style={{ fontSize: 10, color: '#6b4020' }}>4 Canal Plaza · Portland, ME 04101 · (207) 761-2437</span></div>
           <div style={{ display: 'flex', gap: 12 }}>
@@ -171,6 +360,62 @@ function App() {
             <a href={BOTTLE_URL} target="_blank" rel="noopener" style={{ fontSize: 10, color: '#d4a862', textDecoration: 'none' }}>Bottle PDF</a>
             <a href="https://novareresbiercafe.com" target="_blank" rel="noopener" style={{ fontSize: 10, color: '#c17f3a', textDecoration: 'none' }}>novareresbiercafe.com</a>
           </div>
+        </div>
+      </div>
+
+      {logFor && <LogModal logFor={logFor} onCancel={() => setLogFor(null)} onSave={markDrunk} />}
+
+      {toast && (
+        <div style={{ position: 'fixed', bottom: 16, left: '50%', transform: 'translateX(-50%)', background: '#2a3a20', border: '1px solid #4caf78', color: '#a8e8b8', padding: '10px 16px', borderRadius: 8, fontSize: 12, display: 'flex', alignItems: 'center', gap: 10, zIndex: 100, boxShadow: '0 4px 12px rgba(0,0,0,0.5)', maxWidth: 'calc(100% - 32px)' }}>
+          <span>{toast.msg}</span>
+          {toast.undo && <button onClick={toast.undo} style={{ background: '#4caf78', color: '#000', border: 'none', borderRadius: 4, padding: '3px 10px', fontSize: 11, fontWeight: 'bold', cursor: 'pointer' }}>Undo</button>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LogModal({ logFor, onCancel, onSave }) {
+  const [year, setYear] = useState(CURRENT_YEAR);
+  const [rating, setRating] = useState('');
+  const [notes, setNotes] = useState('');
+  const [actualBeer, setActualBeer] = useState(logFor.suggested || '');
+
+  const submit = () => onSave(logFor.kind, logFor.id, year, rating, notes, actualBeer);
+  const inputStyle = { width: '100%', padding: '8px 10px', borderRadius: 6, border: '1px solid #6b3010', background: '#1a0a00', color: '#f5e6c8', fontSize: 13, outline: 'none' };
+
+  return (
+    <div onClick={onCancel} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, zIndex: 200 }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: '#2a1200', border: '2px solid #c17f3a', borderRadius: 12, padding: 18, maxWidth: 380, width: '100%' }}>
+        <div style={{ fontSize: 11, color: '#c9a87a', marginBottom: 4 }}>Mark as drunk</div>
+        <div style={{ fontSize: 15, color: '#f5c842', fontWeight: 'bold', marginBottom: 14 }}>{logFor.name}</div>
+
+        {logFor.kind === 'choice' && (
+          <div style={{ marginBottom: 12 }}>
+            <label style={{ display: 'block', fontSize: 11, color: '#c9a87a', marginBottom: 4 }}>Which beer counted? (optional)</label>
+            <input value={actualBeer} onChange={e => setActualBeer(e.target.value)} placeholder="e.g. Ayinger Maibock" style={inputStyle} />
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
+          <div style={{ flex: '0 0 90px' }}>
+            <label style={{ display: 'block', fontSize: 11, color: '#c9a87a', marginBottom: 4 }}>Year</label>
+            <input type="number" value={year} onChange={e => setYear(e.target.value)} style={inputStyle} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{ display: 'block', fontSize: 11, color: '#c9a87a', marginBottom: 4 }}>Rating (1–5, optional)</label>
+            <input type="number" step="0.1" min="0" max="5" value={rating} onChange={e => setRating(e.target.value)} placeholder="e.g. 4.2" style={inputStyle} />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', fontSize: 11, color: '#c9a87a', marginBottom: 4 }}>Notes (optional)</label>
+          <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="What did you think?" style={{ ...inputStyle, minHeight: 60, resize: 'vertical', fontFamily: 'Georgia, serif' }} />
+        </div>
+
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <button onClick={onCancel} style={{ background: '#3d1a00', color: '#c9a87a', border: 'none', borderRadius: 6, padding: '9px 16px', fontSize: 12, cursor: 'pointer' }}>Cancel</button>
+          <button onClick={submit} style={{ background: '#4caf78', color: '#000', border: 'none', borderRadius: 6, padding: '9px 16px', fontSize: 12, fontWeight: 'bold', cursor: 'pointer' }}>✓ Mark Drunk</button>
         </div>
       </div>
     </div>
