@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
 // Drunk count: 99 at Novare (matches Chalice tab total)
-// Draft: 7/2/26 | Bottle: 6/25/26 | Last updated: 7/2/26
+// Draft: 7/8/26 | Bottle: 7/6/26 | Last updated: 7/9/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '7/2/26';
-window.BOTTLE_DATE = '6/25/26';
-window.SHEET_DATE = '7/2/26';
+window.DRAFT_DATE = '7/8/26';
+window.BOTTLE_DATE = '7/6/26';
+window.SHEET_DATE = '7/9/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -65,6 +65,9 @@ window.BOTTLE_FIRST_SEEN = {
   'italiano tipopils': '2026-06-25',
   'marshall wharf sexy chaos': '2026-06-25',
   'coniston bluebird bitter': '2026-06-25',
+  // NEW on 7/6/26 bottle list
+  'de glazen toren ondineke': '2026-07-06',
+  'banhof leipzig gose': '2026-07-06',
 };
 
 window.BEERS = [
@@ -101,7 +104,7 @@ window.BEERS = [
   { id: 'trillium fort point pale', drunk: true },
   { id: 'maine beer dinner', drunk: false },
   { id: 'sierra nevada celebration', drunk: true },
-  { id: 'russian river pliny the elder', drunk: true, draft: { brewery: 'Russian River', style: 'DDH Double IPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$10.00', ut: 4.1 } },
+  { id: 'russian river pliny the elder', drunk: true, draft: { brewery: 'Russian River', style: 'Double IPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.50', ut: 4.1 } },
   { id: 'boothbay thirsty botanist', drunk: true },
   { id: 'orono the way life should be', drunk: false },
   { id: 'bissell brothers swish', drunk: false },
@@ -158,7 +161,7 @@ window.BEERS = [
   { id: 'schneider aventinus', drunk: true, bottle: { brewery: 'Schneider', style: 'Dunkelweizen Doppelbock', abvNum: 8.0, abv: '8.0%', sz: '500 ml', price: '$10', ut: 4.0 } },
   { id: 'lemke berliner woodruff', drunk: false, bottle: { brewery: 'Lemke', style: 'Berliner Weisse (Waldmeister)', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$10', ut: 3.5 } },
   { id: 'prof fritz briem 1809 berliner', drunk: false },
-  { id: 'banhof leipzig gose', drunk: false },
+  { id: 'banhof leipzig gose', drunk: false, bottle: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '12 oz', price: '$9', ut: 3.6 } },
   { id: 'ritterguts gose', drunk: true },
   { id: 'fruh kolsch', drunk: true, draft: { brewery: 'Fruh', style: 'Kolsch', abvNum: 4.8, abv: '4.8%', sz: '.4 L', price: '$9.00', ut: 3.6 } },
   { id: 'gaffel kolsch', drunk: true, bottle: { brewery: 'Gaffel', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$9', ut: 3.5 } },
@@ -173,7 +176,7 @@ window.BEERS = [
   { id: 'piraat', drunk: true },
   { id: 'de dolle dulle teve', drunk: true },
   { id: 'de dolle stille nacht', drunk: false },
-  { id: 'de glazen toren ondineke', drunk: false },
+  { id: 'de glazen toren ondineke', drunk: false, bottle: { brewery: 'De Glazen Toren', style: 'Belgian Tripel', abvNum: 8.5, abv: '8.5%', sz: '750 ml', price: '$22', ut: 3.7 } },
   { id: 'st bernardus tripel', drunk: true },
   { id: 'unibroue la fin du monde', drunk: true, bottle: { brewery: 'Unibroue', style: 'Belgian Tripel', abvNum: 9.0, abv: '9.0%', sz: '12 oz', price: '$9', ut: 4.0 } },
   { id: 'de garre tripel', drunk: true },
