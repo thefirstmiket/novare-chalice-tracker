@@ -1,5 +1,5 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 99 at Novare (matches Chalice tab total)
+// Drunk count: 99 at Novare (matches Chalice tab total; 75 named + 24 choices)
 // Draft: 7/8/26 | Bottle: 7/6/26 | Last updated: 7/9/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
@@ -72,7 +72,7 @@ window.BOTTLE_FIRST_SEEN = {
 
 window.BEERS = [
   { id: 'bunker libbytown brown', drunk: true },
-  { id: 'barreled souls east brown & down', drunk: true },
+  { id: 'barreled souls east brown & down', drunk: false },
   { id: 'sam smith nut brown ale', drunk: true },
   { id: 'sam smith taddy porter', drunk: true, bottle: { brewery: 'Sam Smith', style: 'English Porter', abvNum: 5.0, abv: '5.0%', sz: '14.9 oz', price: '$10', ut: 3.6 } },
   { id: 'deschutes black butte', drunk: true, bottle: { brewery: 'Deschutes', style: 'American Porter', abvNum: 5.5, abv: '5.5%', sz: '12 oz', price: '$7', ut: 3.7 } },
