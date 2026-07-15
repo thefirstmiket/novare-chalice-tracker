@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
 // Drunk count: 99 at Novare (matches Chalice tab total; 75 named + 24 choices)
-// Draft: 7/8/26 | Bottle: 7/6/26 | Last updated: 7/9/26
+// Draft: 7/12/26 | Bottle: 7/6/26 | Last updated: 7/15/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '7/8/26';
+window.DRAFT_DATE = '7/12/26';
 window.BOTTLE_DATE = '7/6/26';
-window.SHEET_DATE = '7/9/26';
+window.SHEET_DATE = '7/15/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
