@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 99 at Novare (matches Chalice tab total; 75 named + 24 choices)
-// Draft: 7/12/26 | Bottle: 7/6/26 | Last updated: 7/15/26
+// Drunk count: 102 at Novare (matches Chalice tab total; 75 named + 27 choices)
+// Draft: 7/12/26 | Bottle: 7/6/26 | Last updated: 7/16/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
 window.DRAFT_DATE = '7/12/26';
 window.BOTTLE_DATE = '7/6/26';
-window.SHEET_DATE = '7/15/26';
+window.SHEET_DATE = '7/16/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -241,10 +241,10 @@ window.ALL_CHOICES = [
   { slot: 'Special Event Imperial Stout', cat: 'Imperial Stout', drunk: true, m: [] },
   { slot: 'Bartender Draft - Imp. Stout', cat: 'Imperial Stout', drunk: true, m: [{ n: 'Dieu du Ciel! Péché Mortel (Nitro)', b: 'Dieu du Ciel!', abv: '9.5%', sz: '8 oz', p: '$10.00', note: 'Imperial coffee stout on nitro', s: 'd', ut: 4.3 }] },
   { slot: 'Bartender Pkg - Imp. Stout', cat: 'Imperial Stout', drunk: false, m: [{ n: 'North Coast Old Rasputin', b: 'North Coast', abv: '9.0%', sz: '355 ml', p: '$8', note: 'Russian imperial stout (bottle)', s: 'b', ut: 4.0 }, { n: 'Omnipollo/Dugges NOA Pecan Mud Cake', b: 'Omnipollo/Dugges', abv: '11.0%', sz: '330 ml', p: '$17', note: 'Pastry stout w/ pecans + chocolate', s: 'b', ut: 4.2 }] },
-  { slot: 'California Common Choice', cat: 'American Retro', drunk: false, m: [] },
+  { slot: 'California Common Choice', cat: 'American Retro', drunk: true, m: [] },
   { slot: 'Cream Ale Choice', cat: 'American Retro', drunk: false, m: [{ n: 'Genesee Cream Ale', b: 'Genesee', abv: '5.1%', sz: '12 oz', p: '$5', note: 'OG American cream ale (bottle)', s: 'b', ut: 3.2 }] },
   { slot: 'American Porter Choice', cat: 'American Retro', drunk: false, m: [{ n: 'Deschutes Black Butte Porter', b: 'Deschutes', abv: '5.5%', sz: '12 oz', p: '$7', note: 'Classic American porter (bottle)', s: 'b', ut: 3.7 }] },
-  { slot: 'Pre-Prohibition Lager Choice', cat: 'American Retro', drunk: false, m: [] },
+  { slot: 'Pre-Prohibition Lager Choice', cat: 'American Retro', drunk: true, m: [] },
   { slot: 'American Amber Ale Choice', cat: 'American Retro', drunk: false, m: [{ n: 'Cushnoc Rust Bucket', b: 'Cushnoc', abv: '4.9%', sz: '16 oz', p: '$9', note: 'Maine amber ale (bottle)', s: 'b', ut: 3.8 }] },
   { slot: 'Special Event Pale Ale', cat: 'American Pale', drunk: false, m: [{ n: 'Orono Wicked Blueberry', b: 'Orono', abv: '5.0%', sz: '16 oz', p: '$9.00', note: 'Fruited American blonde w/ Maine blueberries', s: 'd', ut: 3.8 }] },
   { slot: 'Bartender Draft - Pale Ale', cat: 'American Pale', drunk: false, m: [{ n: 'Bissell Brothers Baby Genius', b: 'Bissell Bros', abv: '4.0%', sz: '16 oz', p: '$9.50', note: 'Extra hoppy hazy blonde (BBCH benefit)', s: 'd', ut: 3.8 }] },
@@ -257,7 +257,7 @@ window.ALL_CHOICES = [
   { slot: 'The Veil Choice', cat: 'Hazy IPA', drunk: false, m: [] },
   { slot: 'Modestman Choice', cat: 'Hazy IPA', drunk: true, m: [] },
   { slot: 'Other Half Choice', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Other Half Broccoli', b: 'Other Half', abv: '7.9%', sz: '12 oz', p: '$10', note: 'DDH DIPA (bottle)', s: 'b', ut: 4.1 }] },
-  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [{ n: 'Mast Landing/Messorem Beneath the Waves', b: 'Mast Landing', abv: '8.3%', sz: '12 oz', p: '$10.00', note: 'DDH DIPA w/ Motueka, El Dorado, Citra Cryo', s: 'd', ut: 4.2 }, { n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA w/ Riwaka + tropical hops', s: 'd', ut: 4.0 }] },
+  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Mast Landing/Messorem Beneath the Waves', b: 'Mast Landing', abv: '8.3%', sz: '12 oz', p: '$10.00', note: 'DDH DIPA w/ Motueka, El Dorado, Citra Cryo', s: 'd', ut: 4.2 }, { n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA w/ Riwaka + tropical hops', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Draft - Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA on draft', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Pkg - Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [] },
   { slot: 'Barreled Souls Grain Wine', cat: 'Barley Wine', drunk: false, m: [{ n: 'Sebago Barrel-Aged Barleywine', b: 'Sebago', abv: '13.8%', sz: '12 oz', p: '$11', note: 'Bourbon BA barleywine (bottle)', s: 'b', ut: 4.0 }, { n: 'Thomas Hardy The Historical', b: 'Thomas Hardy', abv: '11.5%', sz: '250 ml', p: '$13', note: 'French oak-aged English BW, 1968 recipe', s: 'b', ut: 4.1 }] },
