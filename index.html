@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="root"></div>
-<script src="data.js?v=20260716"></script>
+<script src="data.js?v=20260729"></script>
 <script type="text/babel" data-type="module">
 const { useState, useMemo, useEffect, useCallback } = React;
 const { BEERS, ALL_CHOICES, DRAFT_URL, BOTTLE_URL, DRAFT_DATE, BOTTLE_DATE, SHEET_DATE, BOTTLE_FIRST_SEEN } = window;
@@ -275,9 +275,6 @@ function App() {
         <div style={{ marginBottom: 16, background: '#2a1200', borderRadius: 10, padding: '12px 16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, fontSize: 12, color: '#c9a87a' }}><span>Progress: {TD}/{T} ({BD} named + {CD} choices){pendingCount > 0 ? ` • +${pendingCount} pending` : ''}</span><span>{pct}%</span></div>
           <div style={{ background: '#3d1a00', borderRadius: 20, height: 14, overflow: 'hidden' }}><div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg, #c17f3a, #f5c842)', borderRadius: 20 }} /></div>
-        </div>
-        <div style={{ background: '#1a2a3a', border: '1px solid #4a90d9', borderRadius: 10, padding: '9px 14px', marginBottom: 14, fontSize: 12, color: '#a8c8e8' }}>
-          <strong>Draft {DRAFT_DATE} — Anniversary!</strong> Airline Scottish Export on the Beer Engine, Bunker Chickadee Nitro, North Coast Old Rasputin Nitro, <strong>Péché Mortel Rhum</strong>, Liquid Riot Timelapse (cognac BA barleywine), Bayerischer Bahnhof Berliner Weisse w/ Oats, Weihenstephan Hefe Dunkel, Gaffel Kölsch, <strong>Russian River STiVO Pils</strong>, Köstritzer Schwarzbier, St Bernardus Tripel, De Ranke XX Bitter, <strong>De Dolle Arabier</strong>, Koelbus Apricot, <strong>Cantillon Sang Bleu</strong> (haskap berries!), Rodenbach Classic, Tributary Pale, Trillium Fort Point Pale, Boothbay Thirsty Botanist, Battery Steele Flume. <em>Deep cellar:</em> Cantillon Framboise Lou Pepe 2008, Allagash Interlude 2008, Brooklyn Black Ops 2008.
         </div>
         {newCount > 0 && (
           <div style={{ background: '#1a3a1a', border: '1px solid #4caf78', borderRadius: 10, padding: '9px 14px', marginBottom: 14, fontSize: 12, color: '#a8e8b8' }}>

@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 102 at Novare (matches Chalice tab total; 75 named + 27 choices)
-// Draft: 7/12/26 | Bottle: 7/6/26 | Last updated: 7/16/26
+// Drunk count: 104 at Novare (matches Chalice tab total; 77 named + 27 choices)
+// Draft: 7/27/26 | Bottle: 7/25/26 | Last updated: 7/29/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '7/12/26';
-window.BOTTLE_DATE = '7/6/26';
-window.SHEET_DATE = '7/16/26';
+window.DRAFT_DATE = '7/27/26';
+window.BOTTLE_DATE = '7/25/26';
+window.SHEET_DATE = '7/29/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -68,18 +68,21 @@ window.BOTTLE_FIRST_SEEN = {
   // NEW on 7/6/26 bottle list
   'de glazen toren ondineke': '2026-07-06',
   'banhof leipzig gose': '2026-07-06',
+  // NEW on 7/25/26 bottle list
+  'prof fritz briem 1809 berliner': '2026-07-25',
+  'de glazen toren saison': '2026-07-25',
 };
 
 window.BEERS = [
   { id: 'bunker libbytown brown', drunk: true },
   { id: 'barreled souls east brown & down', drunk: false },
   { id: 'sam smith nut brown ale', drunk: true },
-  { id: 'sam smith taddy porter', drunk: true, bottle: { brewery: 'Sam Smith', style: 'English Porter', abvNum: 5.0, abv: '5.0%', sz: '14.9 oz', price: '$10', ut: 3.6 } },
+  { id: 'sam smith taddy porter', drunk: true },
   { id: 'deschutes black butte', drunk: true, bottle: { brewery: 'Deschutes', style: 'American Porter', abvNum: 5.5, abv: '5.5%', sz: '12 oz', price: '$7', ut: 3.7 } },
   { id: 'mayflower porter', drunk: false },
   { id: 'nogne o porter', drunk: false },
   { id: 'jacks abby framinghammer series', drunk: false },
-  { id: 'bissell angels series', drunk: false, bottle: { brewery: 'Bissell Brothers', style: 'BA Imperial Porter', abvNum: 12.8, abv: '12.8%', sz: '500 ml', price: '$30', ut: 4.3 } },
+  { id: 'bissell angels series', drunk: false },
   { id: 'sam smith oatmeal stout', drunk: true, bottle: { brewery: 'Sam Smith', style: 'Oatmeal Stout', abvNum: 5.0, abv: '5.0%', sz: '550 ml', price: '$10', ut: 3.7 } },
   { id: 'oharas irish stout', drunk: false },
   { id: 'lake st george oatmeal stout', drunk: true },
@@ -91,16 +94,16 @@ window.BEERS = [
   { id: 'barreled souls stay puft series', drunk: true },
   { id: 'marshall wharf sexy chaos', drunk: false, bottle: { brewery: 'Marshall Wharf', style: 'Russian Imperial Stout', abvNum: 10.7, abv: '10.7%', sz: '16 oz', price: '$10', ut: 4.0 } },
   { id: 'prairie bomb series', drunk: true },
-  { id: 'lrbc straight to black:out', drunk: true, bottle: { brewery: 'Liquid Riot', style: 'BA Imperial Stout (Oat)', abvNum: 13.0, abv: '13.0%', sz: '500 ml', price: '$22', ut: 4.2 } },
+  { id: 'lrbc straight to black:out', drunk: true },
   { id: 'pohjala pime oo series', drunk: false },
   { id: 'bissell sigil series', drunk: false },
-  { id: 'de struise choice', drunk: true, bottle: { brewery: 'De Struise', style: 'BA Imperial Stout (Black Damnation)', abvNum: 13.0, abv: '13.0%', sz: '330 ml', price: '$15', ut: 3.9 } },
+  { id: 'de struise choice', drunk: true },
   { id: 'sierra nevada pale', drunk: true },
   { id: 'maine beer peeper', drunk: true, bottle: { brewery: 'Maine Beer Co.', style: 'American Pale Ale', abvNum: 5.5, abv: '5.5%', sz: '500 ml', price: '$10', ut: 3.9 } },
   { id: 'dogfish head 30 min', drunk: true, bottle: { brewery: 'Dogfish Head', style: 'Session IPA', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$6', ut: 3.5 } },
   { id: 'tributary pale', drunk: true },
   { id: 'mast landing dh tell tale', drunk: false },
-  { id: 'bissell brothers lux', drunk: false },
+  { id: 'bissell brothers lux', drunk: true },
   { id: 'trillium fort point pale', drunk: true },
   { id: 'maine beer dinner', drunk: false },
   { id: 'sierra nevada celebration', drunk: true },
@@ -129,29 +132,29 @@ window.BEERS = [
   { id: 'jacks abby house lager', drunk: false },
   { id: 'von trapp boho pils', drunk: false },
   { id: 'pilsner urquell', drunk: true, bottle: { brewery: 'Pilsner Urquell', style: 'Czech Pilsner', abvNum: 4.4, abv: '4.4%', sz: '16.9 oz', price: '$6', ut: 3.8 } },
-  { id: 'schilling palmovka 12', drunk: false },
+  { id: 'schilling palmovka 12', drunk: false, draft: { brewery: 'Schilling', style: 'Czech Pale Lager (LUKR)', abvNum: 5.5, abv: '5.5%', sz: '.5 L', price: '$9.50' } },
   { id: 'czechvar original', drunk: true },
   { id: 'sacred profane pale lager', drunk: false },
   { id: 'einbecker brauherren pils', drunk: false },
   { id: 'ayinger bairisch pils', drunk: true },
-  { id: 'flensberger pils', drunk: false },
+  { id: 'flensberger pils', drunk: true },
   { id: 'italiano tipopils', drunk: true, bottle: { brewery: 'Birrificio Italiano', style: 'Italian Pilsner', abvNum: 5.2, abv: '5.2%', sz: '330 ml', price: '$9', ut: 3.8 } },
   { id: 'human robot hallertau pils', drunk: false },
   { id: 'sacred profane amber lager', drunk: false },
   { id: 'schilling petrin 11', drunk: false },
   { id: 'st georgenbrau kellerbier', drunk: false },
   { id: 'von trapp vienna', drunk: false },
-  { id: 'oec coolship black lager', drunk: true },
+  { id: 'oec coolship black lager', drunk: true, draft: { brewery: 'OEC', style: 'Czech Black Lager (LUKR)', abvNum: 4.5, abv: '4.5%', sz: '.5 L', price: '$10.00' } },
   { id: 'ayinger dunkel', drunk: false },
   { id: 'schilling modernism', drunk: true },
   { id: 'sacred profane dark lager', drunk: true },
   { id: 'ettaller hellerbock', drunk: true },
   { id: 'einbecker winterbock', drunk: false },
-  { id: 'ayinger celebrator', drunk: true, bottle: { brewery: 'Ayinger', style: 'Doppelbock', abvNum: 6.7, abv: '6.7%', sz: '330 ml', price: '$9', ut: 3.9 } },
+  { id: 'ayinger celebrator', drunk: true, draft: { brewery: 'Ayinger', style: 'Doppelbock', abvNum: 6.7, abv: '6.7%', sz: '.3 L', price: '$9.00', ut: 3.9 }, bottle: { brewery: 'Ayinger', style: 'Doppelbock', abvNum: 6.7, abv: '6.7%', sz: '330 ml', price: '$9', ut: 3.9 } },
   { id: 'weihenstephan korbinian', drunk: true, bottle: { brewery: 'Weihenstephan', style: 'Doppelbock', abvNum: 7.4, abv: '7.4%', sz: '500 ml', price: '$9', ut: 3.9 } },
   { id: 'samichlaus vintage', drunk: false },
   { id: 'schlenkerla rauch helles', drunk: false, bottle: { brewery: 'Schlenkerla', style: 'Rauch Helles', abvNum: 4.3, abv: '4.3%', sz: '16 oz', price: '$9', ut: 3.5 } },
-  { id: 'schlenkerla maerzen', drunk: false, bottle: { brewery: 'Schlenkerla', style: 'Rauch Marzen', abvNum: 5.1, abv: '5.1%', sz: '500 ml', price: '$9', ut: 3.9 } },
+  { id: 'schlenkerla maerzen', drunk: false },
   { id: 'sacred profane smoked dark lager', drunk: true },
   { id: 'ayinger brau-weisse', drunk: true, bottle: { brewery: 'Ayinger', style: 'German Hefeweizen', abvNum: 5.1, abv: '5.1%', sz: '330 ml', price: '$9', ut: 3.7 } },
   { id: 'schneider weisse', drunk: false, bottle: { brewery: 'Schneider', style: 'German Hefeweizen', abvNum: 5.4, abv: '5.4%', sz: '500 ml', price: '$9', ut: 3.7 } },
@@ -160,8 +163,8 @@ window.BEERS = [
   { id: 'weihenstephan vitus', drunk: true, bottle: { brewery: 'Weihenstephan', style: 'Weizenbock', abvNum: 7.7, abv: '7.7%', sz: '500 ml', price: '$9', ut: 4.0 } },
   { id: 'schneider aventinus', drunk: true, bottle: { brewery: 'Schneider', style: 'Dunkelweizen Doppelbock', abvNum: 8.0, abv: '8.0%', sz: '500 ml', price: '$10', ut: 4.0 } },
   { id: 'lemke berliner woodruff', drunk: false, bottle: { brewery: 'Lemke', style: 'Berliner Weisse (Waldmeister)', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$10', ut: 3.5 } },
-  { id: 'prof fritz briem 1809 berliner', drunk: false },
-  { id: 'banhof leipzig gose', drunk: false, bottle: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '12 oz', price: '$9', ut: 3.6 } },
+  { id: 'prof fritz briem 1809 berliner', drunk: false, bottle: { brewery: 'Prof. Fritz Briem', style: 'Berliner Weisse', abvNum: 5.0, abv: '5.0%', sz: '500 ml', price: '$10' } },
+  { id: 'banhof leipzig gose', drunk: false, draft: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '.3 L', price: '$9.00', ut: 3.6 }, bottle: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '12 oz', price: '$9', ut: 3.6 } },
   { id: 'ritterguts gose', drunk: true },
   { id: 'fruh kolsch', drunk: true, draft: { brewery: 'Fruh', style: 'Kolsch', abvNum: 4.8, abv: '4.8%', sz: '.4 L', price: '$9.00', ut: 3.6 } },
   { id: 'gaffel kolsch', drunk: true, bottle: { brewery: 'Gaffel', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$9', ut: 3.5 } },
@@ -173,14 +176,14 @@ window.BEERS = [
   { id: 'val dieu blonde', drunk: false },
   { id: 'cuvee de trolls', drunk: false },
   { id: 'allagash curieux', drunk: true },
-  { id: 'piraat', drunk: true },
-  { id: 'de dolle dulle teve', drunk: true },
+  { id: 'piraat', drunk: true, draft: { brewery: 'Van Steenberge', style: 'Belgian Golden Strong', abvNum: 10.5, abv: '10.5%', sz: '12 oz', price: '$9.50' } },
+  { id: 'de dolle dulle teve', drunk: true, draft: { brewery: 'De Dolle', style: 'Belgian Golden Strong (Mad Bitch)', abvNum: 10.0, abv: '10.0%', sz: '12 oz', price: '$11.00' } },
   { id: 'de dolle stille nacht', drunk: false },
   { id: 'de glazen toren ondineke', drunk: false, bottle: { brewery: 'De Glazen Toren', style: 'Belgian Tripel', abvNum: 8.5, abv: '8.5%', sz: '750 ml', price: '$22', ut: 3.7 } },
   { id: 'st bernardus tripel', drunk: true },
   { id: 'unibroue la fin du monde', drunk: true, bottle: { brewery: 'Unibroue', style: 'Belgian Tripel', abvNum: 9.0, abv: '9.0%', sz: '12 oz', price: '$9', ut: 4.0 } },
   { id: 'de garre tripel', drunk: true },
-  { id: 'duvel golden strong', drunk: false, draft: { brewery: 'Duvel', style: 'DH Belgian Golden Strong (6.66)', abvNum: 6.66, abv: '6.66%', sz: '12 oz', price: '$10.00', ut: 3.9 }, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
+  { id: 'duvel golden strong', drunk: false, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
   { id: 'westmalle trippel', drunk: false },
   { id: 'chimay cing cents white', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Tripel (White/Cinq Cents)', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$12', ut: 3.8 } },
   { id: 'chimay cent cinquante green', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Golden Strong (Green/150)', abvNum: 10.0, abv: '10.0%', sz: '330 ml', price: '$12', ut: 4.2 } },
@@ -191,7 +194,7 @@ window.BEERS = [
   { id: 'chimay premiere red', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Dubbel (Red/Première)', abvNum: 7.0, abv: '7.0%', sz: '330 ml', price: '$11', ut: 3.7 } },
   { id: 'achel brune', drunk: true },
   { id: 'st bernardus prior 8', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Strong Dubbel', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$9', ut: 4.0 } },
-  { id: 'chimay grand reserve blue', drunk: false, draft: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue/ATP)', abvNum: 9.0, abv: '9.0%', sz: '10 oz', price: '$11.50', ut: 4.4 }, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
+  { id: 'chimay grand reserve blue', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
   { id: 'st bernardus abt 12', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Belgian Dark Strong', abvNum: 10.5, abv: '10.5%', sz: '330 ml', price: '$10', ut: 4.3 } },
   { id: 'rochefort 8', drunk: false, bottle: { brewery: 'Rochefort', style: 'Trappist Dark Ale', abvNum: 9.2, abv: '9.2%', sz: '330 ml', price: '$11', ut: 4.2 } },
   { id: 'rochefort 10', drunk: false },
@@ -206,7 +209,7 @@ window.BEERS = [
   { id: 'de ranke xx bitter', drunk: false },
   { id: 'de la senne taras boulba', drunk: true },
   { id: 'kazematten saison', drunk: false },
-  { id: 'de glazen toren saison', drunk: false },
+  { id: 'de glazen toren saison', drunk: false, bottle: { brewery: 'De Glazen Toren', style: "Saison d'Erpe-Mère", abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$22' } },
   { id: 'oxbow loretta grisette', drunk: true },
   { id: 'oude orval', drunk: true, bottle: { brewery: 'Orval', style: 'Trappist Ale (Aged)', abvNum: 6.9, abv: '6.9%', sz: '330 ml', price: '$12', ut: 4.1 } },
   { id: 'dupont avec les bons voeux', drunk: true, bottle: { brewery: 'Dupont', style: 'Strong Saison', abvNum: 9.5, abv: '9.5%', sz: '375 ml', price: '$14', ut: 4.1 } },
@@ -217,7 +220,7 @@ window.BEERS = [
   { id: 'hitachino nest white', drunk: true, bottle: { brewery: 'Hitachino Nest', style: 'Belgian Witte', abvNum: 5.5, abv: '5.5%', sz: '11.8 oz', price: '$9', ut: 3.7 } },
   { id: 'unibroue blanche de chambly', drunk: false },
   { id: 'drie fonteinen a & g', drunk: false, bottle: { brewery: 'Drie Fonteinen', style: "Gueuze (Cuvée A&G '18)", abvNum: 6.2, abv: '6.2%', sz: '375 ml', price: '$25', ut: 4.4 } },
-  { id: 'tilquin gueze', drunk: false, bottle: { brewery: 'Tilquin', style: 'Oude Gueuze', abvNum: 7.0, abv: '7.0%', sz: '375 ml', price: '$22', ut: 4.2 } },
+  { id: 'tilquin gueze', drunk: false, bottle: { brewery: 'Tilquin', style: 'Oude Gueuze', abvNum: 7.0, abv: '7.0%', sz: '750 ml', price: '$40', ut: 4.2 } },
   { id: 'timmermans gueuze', drunk: false },
   { id: 'girardin gueuze', drunk: true, bottle: { brewery: 'Girardin', style: 'Gueuze (1882 Black Label)', abvNum: 5.0, abv: '5.0%', sz: '375 ml', price: '$20', ut: 4.3 } },
   { id: 'drie fonteinen kriek', drunk: false, bottle: { brewery: 'Drie Fonteinen', style: 'Oude Kriek (Kelleris)', abvNum: 5.9, abv: '5.9%', sz: '750 ml', price: '$75', ut: 4.5 } },
