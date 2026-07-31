@@ -17,8 +17,8 @@ Track your progress through all 234 beers on the [Novare Res Bier Café](https:/
 
 | Source | URL | Updated |
 |--------|-----|--------|
-| Draft List | [draught.pdf](https://novareresbiercafe.com/wp-content/uploads/draught.pdf) | 7/27/26 |
-| Bottle List | [bottlelist.pdf](https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf) | 7/25/26 |
+| Draft List | [draught.pdf](https://novareresbiercafe.com/wp-content/uploads/draught.pdf) | 7/31/26 |
+| Bottle List | [bottlelist.pdf](https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf) | 7/30/26 |
 | Chalice Spreadsheet | Private Google Sheet | Col H = year drunk at Novare |
 
 ## How to Update

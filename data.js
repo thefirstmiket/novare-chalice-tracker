@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
 // Drunk count: 104 at Novare (matches Chalice tab total; 77 named + 27 choices)
-// Draft: 7/27/26 | Bottle: 7/25/26 | Last updated: 7/29/26
+// Draft: 7/31/26 | Bottle: 7/30/26 | Last updated: 7/31/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '7/27/26';
-window.BOTTLE_DATE = '7/25/26';
-window.SHEET_DATE = '7/29/26';
+window.DRAFT_DATE = '7/31/26';
+window.BOTTLE_DATE = '7/30/26';
+window.SHEET_DATE = '7/31/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -107,7 +107,7 @@ window.BEERS = [
   { id: 'trillium fort point pale', drunk: true },
   { id: 'maine beer dinner', drunk: false },
   { id: 'sierra nevada celebration', drunk: true },
-  { id: 'russian river pliny the elder', drunk: true, draft: { brewery: 'Russian River', style: 'Double IPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.50', ut: 4.1 } },
+  { id: 'russian river pliny the elder', drunk: true },
   { id: 'boothbay thirsty botanist', drunk: true },
   { id: 'orono the way life should be', drunk: false },
   { id: 'bissell brothers swish', drunk: false },
@@ -177,7 +177,7 @@ window.BEERS = [
   { id: 'cuvee de trolls', drunk: false },
   { id: 'allagash curieux', drunk: true },
   { id: 'piraat', drunk: true, draft: { brewery: 'Van Steenberge', style: 'Belgian Golden Strong', abvNum: 10.5, abv: '10.5%', sz: '12 oz', price: '$9.50' } },
-  { id: 'de dolle dulle teve', drunk: true, draft: { brewery: 'De Dolle', style: 'Belgian Golden Strong (Mad Bitch)', abvNum: 10.0, abv: '10.0%', sz: '12 oz', price: '$11.00' } },
+  { id: 'de dolle dulle teve', drunk: true, draft: { brewery: 'De Dolle', style: 'Belgian Golden Strong (Mad Bitch)', abvNum: 10.0, abv: '10.0%', sz: '12 oz', price: '$11.00' }, bottle: { brewery: 'De Dolle', style: 'Belgian Golden Strong (Mad Bitch)', abvNum: 10.0, abv: '10.0%', sz: '16 oz', price: '$13' } },
   { id: 'de dolle stille nacht', drunk: false },
   { id: 'de glazen toren ondineke', drunk: false, bottle: { brewery: 'De Glazen Toren', style: 'Belgian Tripel', abvNum: 8.5, abv: '8.5%', sz: '750 ml', price: '$22', ut: 3.7 } },
   { id: 'st bernardus tripel', drunk: true },
@@ -223,7 +223,7 @@ window.BEERS = [
   { id: 'tilquin gueze', drunk: false, bottle: { brewery: 'Tilquin', style: 'Oude Gueuze', abvNum: 7.0, abv: '7.0%', sz: '750 ml', price: '$40', ut: 4.2 } },
   { id: 'timmermans gueuze', drunk: false },
   { id: 'girardin gueuze', drunk: true, bottle: { brewery: 'Girardin', style: 'Gueuze (1882 Black Label)', abvNum: 5.0, abv: '5.0%', sz: '375 ml', price: '$20', ut: 4.3 } },
-  { id: 'drie fonteinen kriek', drunk: false, bottle: { brewery: 'Drie Fonteinen', style: 'Oude Kriek (Kelleris)', abvNum: 5.9, abv: '5.9%', sz: '750 ml', price: '$75', ut: 4.5 } },
+  { id: 'drie fonteinen kriek', drunk: false },
   { id: 'allagash coolship resurgem', drunk: false },
   { id: 'oxbow native/wild series', drunk: false, bottle: { brewery: 'Oxbow', style: "Spontaneous Farmhouse ('16/'17)", abvNum: 6.0, abv: '6.0%', sz: '750 ml', price: '$45', ut: 4.0 } },
   { id: 'russian river tion series', drunk: true, bottle: { brewery: 'Russian River', style: 'Sour Dark Ale (Consecration)', abvNum: 10.0, abv: '10.0%', sz: '375 ml', price: '$25', ut: 4.2 } },
