@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
 // Drunk count: 106 at Novare (matches Chalice tab total; 79 named + 27 choices, unchanged since 8/2/26)
-// Draft: 9/11/26 | Bottle: 9/11/26 | Last updated: 9/11/26
+// Draft: 9/12/26 | Bottle: 9/11/26 | Last updated: 9/12/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '9/11/26';
+window.DRAFT_DATE = '9/12/26';
 window.BOTTLE_DATE = '9/11/26';
-window.SHEET_DATE = '9/11/26';
+window.SHEET_DATE = '9/12/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -110,8 +110,8 @@ window.BEERS = [
   { id: 'russian river pliny the elder', drunk: true, draft: { brewery: 'Russian River', style: 'Double IPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.50' } },
   { id: 'boothbay thirsty botanist', drunk: true },
   { id: 'orono the way life should be', drunk: false },
-  { id: 'bissell brothers swish', drunk: false, draft: { brewery: 'Bissell Brothers', style: 'New England DIPA', abvNum: 8.0, abv: '8.0%', sz: '12 oz', price: '$9.50' } },
-  { id: 'mast landing pantless thunder', drunk: true },
+  { id: 'bissell brothers swish', drunk: false },
+  { id: 'mast landing pantless thunder', drunk: true, draft: { brewery: 'Mast Landing', style: 'Hazy DIPA (Pantless Thunder Goose)', abvNum: 8.3, abv: '8.3%', sz: '12 oz', price: '$9.50' } },
   { id: 'battery steele flume squared', drunk: false },
   { id: 'goodfire ddh prime', drunk: false },
   { id: 'northcoast old stock', drunk: false, bottle: { brewery: 'North Coast', style: 'British Barleywine', abvNum: 12.5, abv: '12.5%', sz: '355 ml', price: '$8', ut: 3.9 } },
@@ -183,7 +183,7 @@ window.BEERS = [
   { id: 'st bernardus tripel', drunk: true },
   { id: 'unibroue la fin du monde', drunk: true, bottle: { brewery: 'Unibroue', style: 'Belgian Tripel', abvNum: 9.0, abv: '9.0%', sz: '12 oz', price: '$9', ut: 4.0 } },
   { id: 'de garre tripel', drunk: true },
-  { id: 'duvel golden strong', drunk: false, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
+  { id: 'duvel golden strong', drunk: false, draft: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9' }, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
   { id: 'westmalle trippel', drunk: false },
   { id: 'chimay cing cents white', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Tripel (White/Cinq Cents)', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$12', ut: 3.8 } },
   { id: 'chimay cent cinquante green', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Golden Strong (Green/150)', abvNum: 10.0, abv: '10.0%', sz: '330 ml', price: '$12', ut: 4.2 } },
