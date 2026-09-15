@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 106 at Novare (matches Chalice tab total; 79 named + 27 choices, unchanged since 8/2/26)
-// Draft: 9/12/26 | Bottle: 9/11/26 | Last updated: 9/12/26
+// Drunk count: 109 at Novare (matches Chalice tab total; 80 named + 29 choices, up from 106 on 9/15/26: Duvel Golden Strong, Bartender Draft - Pale Lager, Bartender Draft - Mixed Ferm)
+// Draft: 9/15/26 | Bottle: 9/11/26 | Last updated: 9/15/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '9/12/26';
+window.DRAFT_DATE = '9/15/26';
 window.BOTTLE_DATE = '9/11/26';
-window.SHEET_DATE = '9/12/26';
+window.SHEET_DATE = '9/15/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -160,13 +160,13 @@ window.BEERS = [
   { id: 'schneider weisse', drunk: false, bottle: { brewery: 'Schneider', style: 'German Hefeweizen', abvNum: 5.4, abv: '5.4%', sz: '500 ml', price: '$9', ut: 3.7 } },
   { id: 'plank weissbier', drunk: true },
   { id: 'schlenkerla weizen', drunk: false, bottle: { brewery: 'Schlenkerla', style: 'Smoked Wheat Beer', abvNum: 5.2, abv: '5.2%', sz: '500 ml', price: '$9', ut: 3.6 } },
-  { id: 'weihenstephan vitus', drunk: true, draft: { brewery: 'Weihenstephan', style: 'Weizenbock', abvNum: 7.7, abv: '7.7%', sz: '.5 L', price: '$9.50' }, bottle: { brewery: 'Weihenstephan', style: 'Weizenbock', abvNum: 7.7, abv: '7.7%', sz: '500 ml', price: '$9', ut: 4.0 } },
+  { id: 'weihenstephan vitus', drunk: true, bottle: { brewery: 'Weihenstephan', style: 'Weizenbock', abvNum: 7.7, abv: '7.7%', sz: '500 ml', price: '$9', ut: 4.0 } },
   { id: 'schneider aventinus', drunk: true, bottle: { brewery: 'Schneider', style: 'Dunkelweizen Doppelbock', abvNum: 8.0, abv: '8.0%', sz: '500 ml', price: '$10', ut: 4.0 } },
   { id: 'lemke berliner woodruff', drunk: false, bottle: { brewery: 'Lemke', style: 'Berliner Weisse (Waldmeister)', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$10', ut: 3.5 } },
   { id: 'prof fritz briem 1809 berliner', drunk: false, bottle: { brewery: 'Prof. Fritz Briem', style: 'Berliner Weisse', abvNum: 5.0, abv: '5.0%', sz: '500 ml', price: '$10' } },
   { id: 'banhof leipzig gose', drunk: true, bottle: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '12 oz', price: '$9', ut: 3.6 } },
   { id: 'ritterguts gose', drunk: true },
-  { id: 'fruh kolsch', drunk: true, draft: { brewery: 'Fruh', style: 'Kolsch', abvNum: 4.8, abv: '4.8%', sz: '.4 L', price: '$9.00', ut: 3.6 } },
+  { id: 'fruh kolsch', drunk: true },
   { id: 'gaffel kolsch', drunk: true, bottle: { brewery: 'Gaffel', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$9', ut: 3.5 } },
   { id: 'reissdorf kolsch', drunk: true, bottle: { brewery: 'Reissdorf', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$8', ut: 3.6 } },
   { id: 'uerige alt', drunk: false },
@@ -183,7 +183,7 @@ window.BEERS = [
   { id: 'st bernardus tripel', drunk: true },
   { id: 'unibroue la fin du monde', drunk: true, bottle: { brewery: 'Unibroue', style: 'Belgian Tripel', abvNum: 9.0, abv: '9.0%', sz: '12 oz', price: '$9', ut: 4.0 } },
   { id: 'de garre tripel', drunk: true },
-  { id: 'duvel golden strong', drunk: false, draft: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9' }, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
+  { id: 'duvel golden strong', drunk: true, bottle: { brewery: 'Duvel', style: 'Belgian Golden Strong', abvNum: 8.5, abv: '8.5%', sz: '330 ml', price: '$9', ut: 4.0 } },
   { id: 'westmalle trippel', drunk: false },
   { id: 'chimay cing cents white', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Tripel (White/Cinq Cents)', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$12', ut: 3.8 } },
   { id: 'chimay cent cinquante green', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Golden Strong (Green/150)', abvNum: 10.0, abv: '10.0%', sz: '330 ml', price: '$12', ut: 4.2 } },
@@ -210,7 +210,7 @@ window.BEERS = [
   { id: 'de la senne taras boulba', drunk: true },
   { id: 'kazematten saison', drunk: false },
   { id: 'de glazen toren saison', drunk: false, bottle: { brewery: 'De Glazen Toren', style: "Saison d'Erpe-Mère", abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$22' } },
-  { id: 'oxbow loretta grisette', drunk: true },
+  { id: 'oxbow loretta grisette', drunk: true, draft: { brewery: 'Oxbow', style: 'Grisette', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$9.00' } },
   { id: 'oude orval', drunk: true, bottle: { brewery: 'Orval', style: 'Trappist Ale (Aged)', abvNum: 6.9, abv: '6.9%', sz: '330 ml', price: '$12', ut: 4.1 } },
   { id: 'dupont avec les bons voeux', drunk: true, bottle: { brewery: 'Dupont', style: 'Strong Saison', abvNum: 9.5, abv: '9.5%', sz: '375 ml', price: '$14', ut: 4.1 } },
   { id: 'thiriez ambre', drunk: false },
@@ -231,7 +231,7 @@ window.BEERS = [
   { id: 'plan bee barn beer', drunk: false },
   { id: 'allagash coolship red', drunk: true, bottle: { brewery: 'Allagash', style: 'Spontaneous Framboise', abvNum: 5.6, abv: '5.6%', sz: '375 ml', price: '$25', ut: 4.2 } },
   { id: 'jester king atrial rubicite', drunk: false },
-  { id: 'koelbus apricot', drunk: true, bottle: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$40', ut: 3.5 } },
+  { id: 'koelbus apricot', drunk: true, draft: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '8 oz', price: '$9.50' }, bottle: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$40', ut: 3.5 } },
   { id: 'underberg', drunk: true },
   { id: 'fernet michaud', drunk: false },
   { id: 'anything from a porron', drunk: false },
@@ -273,7 +273,7 @@ window.ALL_CHOICES = [
   { slot: 'Pale Lukr Choice', cat: 'Pale Lager', drunk: true, m: [] },
   { slot: 'Special Event Pale Lager', cat: 'Pale Lager', drunk: true, m: [{ n: 'Bitburger Premium Pils', b: 'Bitburger', abv: '4.8%', sz: '.5 L', p: '$9.00', note: 'German pils, crisp and clean', s: 'd', ut: 3.6 }, { n: 'Pinkus Ur-Pils', b: 'Pinkus', abv: '5.2%', sz: '.3 L', p: '$9.50', note: 'Organic German pils, hop forward', s: 'd', ut: 3.7 }, { n: 'Dancing Gnome/Golden Age Czech 12°', b: 'Dancing Gnome/Golden Age', abv: '5.0%', sz: '.5 L', p: '$10.00', note: 'Collab bohemian pale lager, old-world crusher', s: 'd', ut: 3.8 }] },
   { slot: 'Stichfass Cask Pour', cat: 'Pale Lager', drunk: false, m: [] },
-  { slot: 'Bartender Draft - Pale Lager', cat: 'Pale Lager', drunk: false, m: [{ n: 'Bitburger Premium Pils', b: 'Bitburger', abv: '4.8%', sz: '.5 L', p: '$9.00', note: 'German pils on draft', s: 'd', ut: 3.6 }, { n: 'Pinkus Ur-Pils', b: 'Pinkus', abv: '5.2%', sz: '.3 L', p: '$9.50', note: 'Organic German pils on draft', s: 'd', ut: 3.7 }, { n: 'Dancing Gnome/Golden Age Czech 12°', b: 'Dancing Gnome/Golden Age', abv: '5.0%', sz: '.5 L', p: '$10.00', note: 'Collab bohemian pale lager on draft', s: 'd', ut: 3.8 }] },
+  { slot: 'Bartender Draft - Pale Lager', cat: 'Pale Lager', drunk: true, m: [{ n: 'Bitburger Premium Pils', b: 'Bitburger', abv: '4.8%', sz: '.5 L', p: '$9.00', note: 'German pils on draft', s: 'd', ut: 3.6 }, { n: 'Pinkus Ur-Pils', b: 'Pinkus', abv: '5.2%', sz: '.3 L', p: '$9.50', note: 'Organic German pils on draft', s: 'd', ut: 3.7 }, { n: 'Dancing Gnome/Golden Age Czech 12°', b: 'Dancing Gnome/Golden Age', abv: '5.0%', sz: '.5 L', p: '$10.00', note: 'Collab bohemian pale lager on draft', s: 'd', ut: 3.8 }] },
   { slot: 'Bartender Pkg - Pale Lager', cat: 'Pale Lager', drunk: false, m: [{ n: 'Rothaus Pils Tannenzäpfle', b: 'Rothaus', abv: '5.1%', sz: '355 ml', p: '$8', note: 'German pale lager from Black Forest', s: 'b', ut: 3.7 }, { n: 'Sapporo Premium Beer', b: 'Sapporo', abv: '4.9%', sz: '22 oz', p: '$9', note: 'Japanese rice lager', s: 'b', ut: 3.5 }, { n: 'Notch French Disko', b: 'Notch', abv: '4.9%', sz: '16 oz', p: '$9', note: 'French-style pils w/ Strisselspalt', s: 'b', ut: 3.7 }, { n: 'Jever Pils', b: 'Jever', abv: '4.8%', sz: '330 ml', p: '$6', note: 'German pils, 170-year recipe', s: 'b', ut: 3.7 }] },
   { slot: 'Bartender Draft - Dark Lager', cat: 'Dark Lager', drunk: false, m: [{ n: 'Schilling Pohoda 12°', b: 'Schilling', abv: '5.0%', sz: '.5 L', p: '$10.00', note: 'Czech-style dark lager (tmavy pivo)', s: 'd', ut: 3.8 }] },
   { slot: 'Special Event Bock', cat: 'Bock Beers', drunk: true, m: [{ n: 'Ayinger Maibock', b: 'Ayinger', abv: '6.8%', sz: '.5 L', p: '$10.00', note: 'World-class strong amber lager on draft', s: 'd', ut: 4.0 }] },
@@ -292,7 +292,7 @@ window.ALL_CHOICES = [
   { slot: 'Bartender Draft - Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Boon Geuze Sélection', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Foeder-select gueuze on draft', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Pkg - Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Girardin Gueuze 1882 Black Label', b: 'Girardin', abv: '5.0%', sz: '375 ml', p: '$20', note: 'Rare blended lambic (bottle)', s: 'b', ut: 4.3 }, { n: 'De Cam Oude Geuze', b: 'De Cam', abv: '6.2%', sz: '750 ml', p: '$50', note: 'Blend from Boon, Girardin, Lindemans', s: 'b', ut: 4.2 }] },
   { slot: 'Special Event Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'BFM Abbaye de St Bon-Chien 20th Anniversary', b: 'BFM', abv: '11.0%', sz: '750 ml', p: '$40', note: 'Cuvée blend in wine/whiskey/grappa barrels', s: 'b', ut: 4.3 }, { n: 'Kerkom Reuss', b: 'Kerkom', abv: '6.5%', sz: '750 ml', p: '$36', note: 'Bink Blond blended w/ Girardin + Boon lambic', s: 'b', ut: 4.1 }] },
-  { slot: 'Bartender Draft - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'Liefmans Oud Bruin', b: 'Liefmans', abv: '5.0%', sz: '8 oz', p: '$9.50', note: 'Flemish red/brown, mixed-ferm blend', s: 'd', ut: 3.8 }, { n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'Oceanside koelschip spontaneous blend', s: 'd', ut: 4.0 }] },
+  { slot: 'Bartender Draft - Mixed Ferm', cat: 'Mixed Fermentation', drunk: true, m: [{ n: 'Liefmans Oud Bruin', b: 'Liefmans', abv: '5.0%', sz: '8 oz', p: '$9.50', note: 'Flemish red/brown, mixed-ferm blend', s: 'd', ut: 3.8 }, { n: 'Liquid Riot L.R.V. Blend 3', b: 'Liquid Riot', abv: '6.0%', sz: '12 oz', p: '$9.00', note: 'Oceanside koelschip spontaneous blend', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Pkg - Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'Russian River Temptation', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Brett Chardonnay (bottle)', s: 'b', ut: 4.1 }, { n: 'Russian River Supplication', b: 'Russian River', abv: '7.5%', sz: '375 ml', p: '$25', note: 'Sour brown ale, Pinot Noir barrels + cherries', s: 'b', ut: 4.3 }, { n: 'Allagash Cellars #13', b: 'Allagash', abv: '6.5%', sz: '375 ml', p: '$25', note: 'Peach + elderflower sour blonde', s: 'b', ut: 4.0 }, { n: 'Oxbow Fifteen Years Cuvée', b: 'Oxbow', abv: '7.5%', sz: '500 ml', p: '$25', note: '15-yr blended BA farmhouse', s: 'b', ut: 4.1 }] },
   { slot: 'Fonta Flora Fruit Choice', cat: 'Fruit Beers', drunk: false, m: [] },
   { slot: 'Oxbow Wine Grape Choice', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Oxbow Blue Noir', b: 'Oxbow', abv: '7.0%', sz: '500 ml', p: '$25', note: 'Blueberry + Pinot Noir (bottle)', s: 'b', ut: 3.9 }] },
