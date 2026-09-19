@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 112 at Novare (matches Chalice tab total; 80 named + 32 choices, up from 109 on 9/17/26: Bartender Draft - Pale Ale, Bartender Pkg - Farmhouse, Bartender Pkg - Mixed Ferm)
-// Draft: 9/17/26 | Bottle: 9/17/26 | Last updated: 9/17/26
+// Drunk count: 117 at Novare (matches Chalice tab total; 84 named + 33 choices, up from 112 on 9/19/26: De Ranke XX Bitter, Kazematten Saison, Tilquin Gueze, Chimay Grand Reserve Blue, Bartender Pkg - Belgian Saison, Bartender Pkg - Fruit Beer, Special Event Fruit Lambic; Bartender Pkg - Farmhouse and Special Event Lambic reverted (sheet corrections))
+// Draft: 9/19/26 | Bottle: 9/17/26 | Last updated: 9/19/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '9/17/26';
+window.DRAFT_DATE = '9/19/26';
 window.BOTTLE_DATE = '9/17/26';
-window.SHEET_DATE = '9/17/26';
+window.SHEET_DATE = '9/19/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -194,7 +194,7 @@ window.BEERS = [
   { id: 'chimay premiere red', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Dubbel (Red/Première)', abvNum: 7.0, abv: '7.0%', sz: '330 ml', price: '$11', ut: 3.7 } },
   { id: 'achel brune', drunk: true },
   { id: 'st bernardus prior 8', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Strong Dubbel', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$9', ut: 4.0 } },
-  { id: 'chimay grand reserve blue', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
+  { id: 'chimay grand reserve blue', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
   { id: 'st bernardus abt 12', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Belgian Dark Strong', abvNum: 10.5, abv: '10.5%', sz: '330 ml', price: '$10', ut: 4.3 } },
   { id: 'rochefort 8', drunk: false, bottle: { brewery: 'Rochefort', style: 'Trappist Dark Ale', abvNum: 9.2, abv: '9.2%', sz: '330 ml', price: '$11', ut: 4.2 } },
   { id: 'rochefort 10', drunk: false },
@@ -206,9 +206,9 @@ window.BEERS = [
   { id: 'petrus 40/40/20', drunk: false },
   { id: 'de la senne ouden vat', drunk: false },
   { id: 'dupont saison', drunk: true, draft: { brewery: 'Dupont', style: 'Saison', abvNum: 6.5, abv: '6.5%', sz: '10 oz', price: '$11.00' }, bottle: { brewery: 'Dupont', style: 'Saison', abvNum: 6.5, abv: '6.5%', sz: '375 ml', price: '$12', ut: 3.9 } },
-  { id: 'de ranke xx bitter', drunk: false },
+  { id: 'de ranke xx bitter', drunk: true },
   { id: 'de la senne taras boulba', drunk: true },
-  { id: 'kazematten saison', drunk: false },
+  { id: 'kazematten saison', drunk: true },
   { id: 'de glazen toren saison', drunk: false, bottle: { brewery: 'De Glazen Toren', style: "Saison d'Erpe-Mère", abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$22' } },
   { id: 'oxbow loretta grisette', drunk: true, draft: { brewery: 'Oxbow', style: 'Grisette', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$9.00' } },
   { id: 'oude orval', drunk: true, bottle: { brewery: 'Orval', style: 'Trappist Ale (Aged)', abvNum: 6.9, abv: '6.9%', sz: '330 ml', price: '$12', ut: 4.1 } },
@@ -220,7 +220,7 @@ window.BEERS = [
   { id: 'hitachino nest white', drunk: true, bottle: { brewery: 'Hitachino Nest', style: 'Belgian Witte', abvNum: 5.5, abv: '5.5%', sz: '11.8 oz', price: '$9', ut: 3.7 } },
   { id: 'unibroue blanche de chambly', drunk: false },
   { id: 'drie fonteinen a & g', drunk: false, bottle: { brewery: 'Drie Fonteinen', style: "Gueuze (Cuvée A&G '18)", abvNum: 6.2, abv: '6.2%', sz: '375 ml', price: '$25', ut: 4.4 } },
-  { id: 'tilquin gueze', drunk: false, bottle: { brewery: 'Tilquin', style: 'Oude Gueuze', abvNum: 7.0, abv: '7.0%', sz: '750 ml', price: '$40', ut: 4.2 } },
+  { id: 'tilquin gueze', drunk: true, bottle: { brewery: 'Tilquin', style: 'Oude Gueuze', abvNum: 7.0, abv: '7.0%', sz: '750 ml', price: '$40', ut: 4.2 } },
   { id: 'timmermans gueuze', drunk: false },
   { id: 'girardin gueuze', drunk: true, bottle: { brewery: 'Girardin', style: 'Gueuze (1882 Black Label)', abvNum: 5.0, abv: '5.0%', sz: '375 ml', price: '$20', ut: 4.3 } },
   { id: 'drie fonteinen kriek', drunk: false },
@@ -232,7 +232,7 @@ window.BEERS = [
   { id: 'allagash coolship red', drunk: true, bottle: { brewery: 'Allagash', style: 'Spontaneous Framboise', abvNum: 5.6, abv: '5.6%', sz: '375 ml', price: '$25', ut: 4.2 } },
   { id: 'jester king atrial rubicite', drunk: false },
   { id: 'koelbus apricot', drunk: true, draft: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '8 oz', price: '$9.50' }, bottle: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$40', ut: 3.5 } },
-  { id: 'underberg', drunk: true },
+  { id: 'underberg', drunk: true, draft: { brewery: 'Underberg', style: 'German Herbal Bitters', abvNum: 44, abv: '44%', sz: '20 ml', price: '$5.00' } },
   { id: 'fernet michaud', drunk: false },
   { id: 'anything from a porron', drunk: false },
 ];
@@ -279,16 +279,16 @@ window.ALL_CHOICES = [
   { slot: 'Special Event Bock', cat: 'Bock Beers', drunk: true, m: [{ n: 'Ayinger Maibock', b: 'Ayinger', abv: '6.8%', sz: '.5 L', p: '$10.00', note: 'World-class strong amber lager on draft', s: 'd', ut: 4.0 }] },
   { slot: 'Grodziskie Choice', cat: 'Smokebeers', drunk: false, m: [] },
   { slot: 'Special Event Smokebier', cat: 'Smokebeers', drunk: true, m: [{ n: 'Schlenkerla Oak Smoke', b: 'Schlenkerla', abv: '8.0%', sz: '500 ml', p: '$10', note: 'Rauch doppelbock w/ oak smoked malt', s: 'b', ut: 4.0 }, { n: 'Schlenkerla Urbock', b: 'Schlenkerla', abv: '6.6%', sz: '500 ml', p: '$9', note: 'Smoked bock aged in oakwood casks', s: 'b', ut: 3.9 }] },
-  { slot: 'Bartender Pkg - Belgian Saison', cat: 'Belgian Saison', drunk: false, m: [{ n: "Blaugies Saison D'Epeautre", b: 'Blaugies', abv: '6.0%', sz: '750 ml', p: '$25', note: 'World-class spelt saison (bottle)', s: 'b', ut: 4.0 }] },
+  { slot: 'Bartender Pkg - Belgian Saison', cat: 'Belgian Saison', drunk: true, m: [{ n: "Blaugies Saison D'Epeautre", b: 'Blaugies', abv: '6.0%', sz: '750 ml', p: '$25', note: 'World-class spelt saison (bottle)', s: 'b', ut: 4.0 }] },
   { slot: 'Bartender Draft - Farmhouse', cat: 'Belgian Farmhouse', drunk: true, m: [{ n: 'Dupont Saison Dupont', b: 'Dupont', abv: '6.5%', sz: '12 oz', p: '$11.00', note: 'World-classic Belgian farmhouse on draft', s: 'd', ut: 3.9 }] },
-  { slot: 'Bartender Pkg - Farmhouse', cat: 'Belgian Farmhouse', drunk: true, m: [{ n: "Blaugies Saison D'Epeautre", b: 'Blaugies', abv: '6.0%', sz: '750 ml', p: '$25', note: 'Benchmark spelt saison (bottle)', s: 'b', ut: 4.0 }, { n: 'Blaugies La Moneuse Special Noel', b: 'Blaugies', abv: '8.0%', sz: '750 ml', p: '$25', note: 'Biere de Noel, strong winter farmhouse', s: 'b', ut: 4.0 }] },
+  { slot: 'Bartender Pkg - Farmhouse', cat: 'Belgian Farmhouse', drunk: false, m: [{ n: "Blaugies Saison D'Epeautre", b: 'Blaugies', abv: '6.0%', sz: '750 ml', p: '$25', note: 'Benchmark spelt saison (bottle)', s: 'b', ut: 4.0 }, { n: 'Blaugies La Moneuse Special Noel', b: 'Blaugies', abv: '8.0%', sz: '750 ml', p: '$25', note: 'Biere de Noel, strong winter farmhouse', s: 'b', ut: 4.0 }] },
   { slot: 'Belgian Blonde Choice', cat: 'Belgian Blonde/Pale', drunk: true, m: [{ n: 'De Koninck Bolleke', b: 'De Koninck', abv: '5.2%', sz: '12 oz', p: '$10.00', note: 'Belgian pale ale, the beer of Antwerp', s: 'd', ut: 3.8 }, { n: 'De Dolle Arabier', b: 'De Dolle', abv: '8.0%', sz: '12 oz', p: '$10.50', note: 'Belgian blonde w/ Nugget + Whitbread hops', s: 'd', ut: 3.9 }, { n: 'Vedett Extra White', b: 'Vedett', abv: '4.7%', sz: '12 oz', p: '$9.00', note: 'Belgian wit w/ orange peel + coriander', s: 'd', ut: 3.5 }] },
   { slot: 'Oud Beersel Choice', cat: 'Belgian Lambic', drunk: true, m: [{ n: 'Oud Beersel Oude Geuze', b: 'Oud Beersel', abv: '6.0%', sz: '375 ml', p: '$25', note: 'Classic blended gueuze (bottle)', s: 'b', ut: 4.1 }, { n: "Oud Beersel Oude Geuze Barrel Selection Foeder '21", b: 'Oud Beersel', abv: '6.5%', sz: '375 ml', p: '$25', note: 'Limited white-wine foeder gueuze', s: 'b', ut: 4.2 }] },
   { slot: 'Boon Geuze Choice', cat: 'Belgian Lambic', drunk: true, m: [{ n: 'Boon Geuze Sélection (draft)', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Foeder-select gueuze on draft', s: 'd', ut: 4.0 }, { n: 'Boon Geuze Mariage Parfait 2020', b: 'Boon', abv: '8.0%', sz: '375 ml', p: '$20', note: 'Best of vintage blended lambic (bottle)', s: 'b', ut: 4.3 }, { n: 'Boon Oude Geuze Black Label #4', b: 'Boon', abv: '7.0%', sz: '750 ml', p: '$30', note: 'Bone-dry anniversary blend (bottle)', s: 'b', ut: 4.2 }] },
   { slot: 'Tilquin Wine Grape Choice', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Tilquin Oude Pinot Gris', b: 'Tilquin', abv: '8.4%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Gris (bottle)', s: 'b', ut: 4.2 }, { n: 'Tilquin Oude Pinot Noir', b: 'Tilquin', abv: '7.7%', sz: '750 ml', p: '$50', note: 'Lambic w/ Pinot Noir (bottle)', s: 'b', ut: 4.3 }, { n: 'Tilquin Oude Riesling', b: 'Tilquin', abv: '8.4%', sz: '750 ml', p: '$50', note: 'Lambic w/ Riesling (bottle)', s: 'b', ut: 4.2 }, { n: 'Tilquin Oude Gewurztraminer', b: 'Tilquin', abv: '7.7%', sz: '750 ml', p: '$50', note: 'Lambic w/ Gewurztraminer (bottle)', s: 'b', ut: 4.2 }] },
   { slot: 'Cantillon Fruited Choice', cat: 'Belgian Lambic', drunk: true, m: [] },
-  { slot: 'Special Event Lambic', cat: 'Belgian Lambic', drunk: true, m: [{ n: 'Boon Geuze Sélection (draft)', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Foeder-select gueuze on draft', s: 'd', ut: 4.0 }, { n: 'Tilquin HORAL Mega Blend 2024', b: 'Tilquin', abv: '7.0%', sz: '750 ml', p: '$55', note: 'Blend of lambics from every HORAL member', s: 'b', ut: 4.4 }] },
-  { slot: 'Special Event Fruit Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '375 ml', p: '$28', note: 'Wild lingonberry lambic (bottle)', s: 'b', ut: 4.1 }, { n: 'Tilquin Oude Abricot', b: 'Tilquin', abv: '5.8%', sz: '375 ml', p: '$28', note: 'Apricot lambic (bottle)', s: 'b', ut: 4.2 }, { n: 'Drie Fonteinen Kweeper', b: '3 Fonteinen', abv: '5.9%', sz: '750 ml', p: '$65', note: 'Quince lambic (bottle)', s: 'b', ut: 4.3 }, { n: 'Tilquin Oude Mirabelle', b: 'Tilquin', abv: '7.0%', sz: '750 ml', p: '$65', note: 'Mirabelle golden plum lambic', s: 'b', ut: 4.3 }] },
+  { slot: 'Special Event Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Boon Geuze Sélection (draft)', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Foeder-select gueuze on draft', s: 'd', ut: 4.0 }, { n: 'Tilquin HORAL Mega Blend 2024', b: 'Tilquin', abv: '7.0%', sz: '750 ml', p: '$55', note: 'Blend of lambics from every HORAL member', s: 'b', ut: 4.4 }] },
+  { slot: 'Special Event Fruit Lambic', cat: 'Belgian Lambic', drunk: true, m: [{ n: 'Tilquin Airelle Sauvage', b: 'Tilquin', abv: '5.1%', sz: '375 ml', p: '$28', note: 'Wild lingonberry lambic (bottle)', s: 'b', ut: 4.1 }, { n: 'Tilquin Oude Abricot', b: 'Tilquin', abv: '5.8%', sz: '375 ml', p: '$28', note: 'Apricot lambic (bottle)', s: 'b', ut: 4.2 }, { n: 'Drie Fonteinen Kweeper', b: '3 Fonteinen', abv: '5.9%', sz: '750 ml', p: '$65', note: 'Quince lambic (bottle)', s: 'b', ut: 4.3 }, { n: 'Tilquin Oude Mirabelle', b: 'Tilquin', abv: '7.0%', sz: '750 ml', p: '$65', note: 'Mirabelle golden plum lambic', s: 'b', ut: 4.3 }] },
   { slot: 'Bartender Draft - Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Boon Geuze Sélection', b: 'Boon', abv: '6.3%', sz: '8 oz', p: '$11.00', note: 'Foeder-select gueuze on draft', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Pkg - Lambic', cat: 'Belgian Lambic', drunk: false, m: [{ n: 'Girardin Gueuze 1882 Black Label', b: 'Girardin', abv: '5.0%', sz: '375 ml', p: '$20', note: 'Rare blended lambic (bottle)', s: 'b', ut: 4.3 }, { n: 'De Cam Oude Geuze', b: 'De Cam', abv: '6.2%', sz: '750 ml', p: '$50', note: 'Blend from Boon, Girardin, Lindemans', s: 'b', ut: 4.2 }] },
   { slot: 'Special Event Mixed Ferm', cat: 'Mixed Fermentation', drunk: false, m: [{ n: 'BFM Abbaye de St Bon-Chien 20th Anniversary', b: 'BFM', abv: '11.0%', sz: '750 ml', p: '$40', note: 'Cuvée blend in wine/whiskey/grappa barrels', s: 'b', ut: 4.3 }, { n: 'Kerkom Reuss', b: 'Kerkom', abv: '6.5%', sz: '750 ml', p: '$36', note: 'Bink Blond blended w/ Girardin + Boon lambic', s: 'b', ut: 4.1 }] },
@@ -298,7 +298,7 @@ window.ALL_CHOICES = [
   { slot: 'Oxbow Wine Grape Choice', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Oxbow Blue Noir', b: 'Oxbow', abv: '7.0%', sz: '500 ml', p: '$25', note: 'Blueberry + Pinot Noir (bottle)', s: 'b', ut: 3.9 }] },
   { slot: 'Special Event Fruited', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Allagash Coolship Camerise', b: 'Allagash', abv: '6.7%', sz: '8 oz', p: '$10.50', note: 'Spontaneous ale w/ Quebec honeyberries', s: 'd', ut: 4.1 }, { n: 'LoverBeer BeerBrugna', b: 'LoverBeer', abv: '6.2%', sz: '330 ml', p: '$12', note: 'BA mixed-ferm w/ Damaschin plums', s: 'b', ut: 4.2 }, { n: 'LoverBeer BeerBera', b: 'LoverBeer', abv: '8.0%', sz: '330 ml', p: '$12', note: 'BA mixed-ferm w/ Barbera red wine grapes', s: 'b', ut: 4.2 }] },
   { slot: 'Bartender Draft - Fruit Beer', cat: 'Fruit Beers', drunk: true, m: [{ n: 'Allagash Coolship Camerise', b: 'Allagash', abv: '6.7%', sz: '8 oz', p: '$10.50', note: 'Spontaneous ale w/ Quebec honeyberries', s: 'd', ut: 4.1 }] },
-  { slot: 'Bartender Pkg - Fruit Beer', cat: 'Fruit Beers', drunk: false, m: [] },
+  { slot: 'Bartender Pkg - Fruit Beer', cat: 'Fruit Beers', drunk: true, m: [] },
   { slot: 'English Cider Choice', cat: 'Cider', drunk: true, m: [{ n: 'Samuel Smith Organic Cider', b: 'Sam Smith', abv: '5.0%', sz: '12 oz', p: '$10.00', note: 'Off-dry English organic cider', s: 'd', ut: 3.7 }] },
   { slot: 'Spanish Cider Choice', cat: 'Cider', drunk: false, m: [] },
   { slot: 'French Cider Choice', cat: 'Cider', drunk: false, m: [] },
