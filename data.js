@@ -1,12 +1,12 @@
 // NOVARE RES CHALICE TRACKER DATA
-// Drunk count: 117 at Novare (matches Chalice tab total; 84 named + 33 choices, unchanged since 9/19/26)
-// Draft: 10/1/26 | Bottle: 9/17/26 | Last updated: 10/1/26
+// Drunk count: 119 at Novare (matches sheet header; 87 named + 32 choices; up from 117 on 10/1/26: Lemke Berliner Woodruff, Rochefort 6, Allagash Foliage Report, Mass Choice; Special Event Hazy IPA and Bartender Pkg Fruit Beer reverted per sheet)
+// Draft: 10/13/26 | Bottle: 9/17/26 | Last updated: 10/14/26
 
 window.DRAFT_URL = 'https://novareresbiercafe.com/wp-content/uploads/draught.pdf';
 window.BOTTLE_URL = 'https://novareresbiercafe.com/wp-content/uploads/bottlelist.pdf';
-window.DRAFT_DATE = '10/1/26';
+window.DRAFT_DATE = '10/13/26';
 window.BOTTLE_DATE = '9/17/26';
-window.SHEET_DATE = '10/1/26';
+window.SHEET_DATE = '10/14/26';
 
 // Beers first seen on the bottle list within the last 30 days get a NEW badge
 // Format: { 'beer id': '2026-MM-DD' } - first appearance date
@@ -88,7 +88,7 @@ window.BEERS = [
   { id: 'lake st george oatmeal stout', drunk: true },
   { id: 'harviestoun old engine oil', drunk: true, draft: { brewery: 'Harviestoun', style: 'Scottish Stout', abvNum: 6.0, abv: '6.0%', sz: '12 oz', price: '$10.00' }, bottle: { brewery: 'Harviestoun', style: 'Scottish Craft Stout', abvNum: 6.0, abv: '6.0%', sz: '12 oz', price: '$9', ut: 3.6 } },
   { id: 'maine beer mean old tom', drunk: true },
-  { id: 'north coast old rasputin', drunk: true, draft: { brewery: 'North Coast', style: 'Imperial Stout (Nitro)', abvNum: 9.0, abv: '9.0%', sz: '8 oz', price: '$8.00', ut: 4.0 }, bottle: { brewery: 'North Coast', style: 'Russian Imperial Stout', abvNum: 9.0, abv: '9.0%', sz: '355 ml', price: '$8', ut: 4.0 } },
+  { id: 'north coast old rasputin', drunk: true, bottle: { brewery: 'North Coast', style: 'Russian Imperial Stout', abvNum: 9.0, abv: '9.0%', sz: '355 ml', price: '$8', ut: 4.0 } },
   { id: 'dieu du ciel peche mortel', drunk: true },
   { id: 'tributary mott the lesser', drunk: false },
   { id: 'barreled souls stay puft series', drunk: true },
@@ -99,11 +99,11 @@ window.BEERS = [
   { id: 'bissell sigil series', drunk: false },
   { id: 'de struise choice', drunk: true },
   { id: 'sierra nevada pale', drunk: true },
-  { id: 'maine beer peeper', drunk: true },
+  { id: 'maine beer peeper', drunk: true, draft: { brewery: 'Maine Beer Co.', style: 'American Pale Ale', abvNum: 5.5, abv: '5.5%', sz: '16 oz', price: '$10.00' } },
   { id: 'dogfish head 30 min', drunk: true, bottle: { brewery: 'Dogfish Head', style: 'Session IPA', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$6', ut: 3.5 } },
   { id: 'tributary pale', drunk: true },
   { id: 'mast landing dh tell tale', drunk: false },
-  { id: 'bissell brothers lux', drunk: true },
+  { id: 'bissell brothers lux', drunk: true, draft: { brewery: 'Bissell Brothers', style: 'Hazy Pale Ale', abvNum: 5.1, abv: '5.1%', sz: '16 oz', price: '$9.50' } },
   { id: 'trillium fort point pale', drunk: true },
   { id: 'maine beer dinner', drunk: false },
   { id: 'sierra nevada celebration', drunk: true },
@@ -118,8 +118,8 @@ window.BEERS = [
   { id: 'j.w.lees harvest ale', drunk: false, bottle: { brewery: 'J.W. Lees', style: 'English Barley Wine', abvNum: 11.5, abv: '11.5%', sz: '220 ml', price: '$12', ut: 3.9 } },
   { id: 'de struise clash of the titans', drunk: false, bottle: { brewery: 'De Struise', style: 'BA Barleywine (Grand Reserva)', abvNum: 12.6, abv: '12.6%', sz: '330 ml', price: '$15', ut: 4.1 } },
   { id: 'sierra nevada big foot', drunk: false },
-  { id: 'coniston bluebird bitter', drunk: true },
-  { id: 'green king old speckled hen', drunk: true },
+  { id: 'coniston bluebird bitter', drunk: true, draft: { brewery: 'Coniston', style: 'English Bitter (Beer Engine)', abvNum: 3.6, abv: '3.6%', sz: '16 oz', price: '$10.50' } },
+  { id: 'green king old speckled hen', drunk: true, draft: { brewery: 'Greene King', style: 'English Pale Ale (Nitro)', abvNum: 5.2, abv: '5.2%', sz: '20 oz', price: '$9.50' } },
   { id: 'lake st george diver pale', drunk: false },
   { id: 'ridgeway esb', drunk: true },
   { id: 'tynt meadow dark english', drunk: false },
@@ -162,13 +162,13 @@ window.BEERS = [
   { id: 'schlenkerla weizen', drunk: false, bottle: { brewery: 'Schlenkerla', style: 'Smoked Wheat Beer', abvNum: 5.2, abv: '5.2%', sz: '500 ml', price: '$9', ut: 3.6 } },
   { id: 'weihenstephan vitus', drunk: true, bottle: { brewery: 'Weihenstephan', style: 'Weizenbock', abvNum: 7.7, abv: '7.7%', sz: '500 ml', price: '$9', ut: 4.0 } },
   { id: 'schneider aventinus', drunk: true, bottle: { brewery: 'Schneider', style: 'Dunkelweizen Doppelbock', abvNum: 8.0, abv: '8.0%', sz: '500 ml', price: '$10', ut: 4.0 } },
-  { id: 'lemke berliner woodruff', drunk: false, bottle: { brewery: 'Lemke', style: 'Berliner Weisse (Waldmeister)', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$10', ut: 3.5 } },
+  { id: 'lemke berliner woodruff', drunk: true, bottle: { brewery: 'Lemke', style: 'Berliner Weisse (Waldmeister)', abvNum: 4.0, abv: '4.0%', sz: '12 oz', price: '$10', ut: 3.5 } },
   { id: 'prof fritz briem 1809 berliner', drunk: false, bottle: { brewery: 'Prof. Fritz Briem', style: 'Berliner Weisse', abvNum: 5.0, abv: '5.0%', sz: '500 ml', price: '$10' } },
   { id: 'banhof leipzig gose', drunk: true, bottle: { brewery: 'Bayerischer Bahnhof', style: 'Leipziger Gose', abvNum: 4.6, abv: '4.6%', sz: '12 oz', price: '$9', ut: 3.6 } },
   { id: 'ritterguts gose', drunk: true },
   { id: 'fruh kolsch', drunk: true },
   { id: 'gaffel kolsch', drunk: true, bottle: { brewery: 'Gaffel', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$9', ut: 3.5 } },
-  { id: 'reissdorf kolsch', drunk: true, bottle: { brewery: 'Reissdorf', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$8', ut: 3.6 } },
+  { id: 'reissdorf kolsch', drunk: true, draft: { brewery: 'Reissdorf', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '.4 L', price: '$8.50' }, bottle: { brewery: 'Reissdorf', style: 'German Kolsch', abvNum: 4.8, abv: '4.8%', sz: '16.9 oz', price: '$8', ut: 3.6 } },
   { id: 'uerige alt', drunk: false },
   { id: 'westmalle extra', drunk: true },
   { id: 'st. bernardus extra 4', drunk: true, bottle: { brewery: 'St Bernardus', style: 'Abbey Single', abvNum: 4.8, abv: '4.8%', sz: '330 ml', price: '$9', ut: 3.5 } },
@@ -189,12 +189,12 @@ window.BEERS = [
   { id: 'chimay cent cinquante green', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Golden Strong (Green/150)', abvNum: 10.0, abv: '10.0%', sz: '330 ml', price: '$12', ut: 4.2 } },
   { id: 'st bernardus pater 6', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Abbey Dubbel', abvNum: 6.7, abv: '6.7%', sz: '330 ml', price: '$9', ut: 3.7 } },
   { id: 'westmalle dubbel', drunk: true, bottle: { brewery: 'Westmalle', style: 'Trappist Dubbel', abvNum: 7.0, abv: '7.0%', sz: '330 ml', price: '$10', ut: 3.9 } },
-  { id: 'rochefort 6', drunk: false, bottle: { brewery: 'Rochefort', style: 'Trappist Dubbel', abvNum: 7.5, abv: '7.5%', sz: '330 ml', price: '$11', ut: 3.8 } },
-  { id: 'allagash foliage report', drunk: false },
+  { id: 'rochefort 6', drunk: true, bottle: { brewery: 'Rochefort', style: 'Trappist Dubbel', abvNum: 7.5, abv: '7.5%', sz: '330 ml', price: '$11', ut: 3.8 } },
+  { id: 'allagash foliage report', drunk: true, draft: { brewery: 'Allagash', style: 'Belgian-style Dubbel', abvNum: 7.0, abv: '7.0%', sz: '16 oz', price: '$10.00' } },
   { id: 'chimay premiere red', drunk: false, bottle: { brewery: 'Chimay', style: 'Trappist Dubbel (Red/Première)', abvNum: 7.0, abv: '7.0%', sz: '330 ml', price: '$11', ut: 3.7 } },
   { id: 'achel brune', drunk: true },
   { id: 'st bernardus prior 8', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Strong Dubbel', abvNum: 8.0, abv: '8.0%', sz: '330 ml', price: '$9', ut: 4.0 } },
-  { id: 'chimay grand reserve blue', drunk: true, draft: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '10 oz', price: '$11.50' }, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
+  { id: 'chimay grand reserve blue', drunk: true, bottle: { brewery: 'Chimay', style: 'Trappist Strong Dark (Blue)', abvNum: 9.0, abv: '9.0%', sz: '330 ml', price: '$12', ut: 4.3 } },
   { id: 'st bernardus abt 12', drunk: false, bottle: { brewery: 'St Bernardus', style: 'Belgian Dark Strong', abvNum: 10.5, abv: '10.5%', sz: '330 ml', price: '$10', ut: 4.3 } },
   { id: 'rochefort 8', drunk: false, bottle: { brewery: 'Rochefort', style: 'Trappist Dark Ale', abvNum: 9.2, abv: '9.2%', sz: '330 ml', price: '$11', ut: 4.2 } },
   { id: 'rochefort 10', drunk: false },
@@ -226,13 +226,13 @@ window.BEERS = [
   { id: 'drie fonteinen kriek', drunk: false },
   { id: 'allagash coolship resurgem', drunk: false },
   { id: 'oxbow native/wild series', drunk: false, bottle: { brewery: 'Oxbow', style: "Spontaneous Farmhouse ('16/'17)", abvNum: 6.0, abv: '6.0%', sz: '750 ml', price: '$45', ut: 4.0 } },
-  { id: 'russian river tion series', drunk: true, draft: { brewery: 'Russian River', style: 'Sour Dark Ale (Consecration)', abvNum: 10.0, abv: '10.0%', sz: '8 oz', price: '$10.00' }, bottle: { brewery: 'Russian River', style: 'Sour Dark Ale (Consecration)', abvNum: 10.0, abv: '10.0%', sz: '375 ml', price: '$25', ut: 4.2 } },
+  { id: 'russian river tion series', drunk: true, bottle: { brewery: 'Russian River', style: 'Sour Dark Ale (Consecration)', abvNum: 10.0, abv: '10.0%', sz: '375 ml', price: '$25', ut: 4.2 } },
   { id: 'jester king petite prince', drunk: false },
   { id: 'plan bee barn beer', drunk: false },
   { id: 'allagash coolship red', drunk: true, bottle: { brewery: 'Allagash', style: 'Spontaneous Framboise', abvNum: 5.6, abv: '5.6%', sz: '375 ml', price: '$25', ut: 4.2 } },
   { id: 'jester king atrial rubicite', drunk: false },
   { id: 'koelbus apricot', drunk: true, bottle: { brewery: 'Koelbus', style: 'Fruited Spontaneous', abvNum: 6.5, abv: '6.5%', sz: '750 ml', price: '$40', ut: 3.5 } },
-  { id: 'underberg', drunk: true, draft: { brewery: 'Underberg', style: 'German Herbal Bitters', abvNum: 44, abv: '44%', sz: '20 ml', price: '$5.00' } },
+  { id: 'underberg', drunk: true },
   { id: 'fernet michaud', drunk: false },
   { id: 'anything from a porron', drunk: false },
 ];
@@ -260,7 +260,7 @@ window.ALL_CHOICES = [
   { slot: 'The Veil Choice', cat: 'Hazy IPA', drunk: false, m: [] },
   { slot: 'Modestman Choice', cat: 'Hazy IPA', drunk: true, m: [] },
   { slot: 'Other Half Choice', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Other Half Broccoli', b: 'Other Half', abv: '7.9%', sz: '12 oz', p: '$10', note: 'DDH DIPA (bottle)', s: 'b', ut: 4.1 }] },
-  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Mast Landing/Messorem Beneath the Waves', b: 'Mast Landing', abv: '8.3%', sz: '12 oz', p: '$10.00', note: 'DDH DIPA w/ Motueka, El Dorado, Citra Cryo', s: 'd', ut: 4.2 }, { n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA w/ Riwaka + tropical hops', s: 'd', ut: 4.0 }] },
+  { slot: 'Special Event Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [{ n: 'Mast Landing/Messorem Beneath the Waves', b: 'Mast Landing', abv: '8.3%', sz: '12 oz', p: '$10.00', note: 'DDH DIPA w/ Motueka, El Dorado, Citra Cryo', s: 'd', ut: 4.2 }, { n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA w/ Riwaka + tropical hops', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Draft - Hazy IPA', cat: 'Hazy IPA', drunk: true, m: [{ n: 'Le Ketch Dock 148', b: 'Le Ketch', abv: '6.5%', sz: '12 oz', p: '$10.50', note: 'NEIPA on draft', s: 'd', ut: 4.0 }] },
   { slot: 'Bartender Pkg - Hazy IPA', cat: 'Hazy IPA', drunk: false, m: [] },
   { slot: 'Barreled Souls Grain Wine', cat: 'Barley Wine', drunk: false, m: [{ n: 'Sebago Barrel-Aged Barleywine', b: 'Sebago', abv: '13.8%', sz: '12 oz', p: '$11', note: 'Bourbon BA barleywine (bottle)', s: 'b', ut: 4.0 }, { n: 'Thomas Hardy The Historical', b: 'Thomas Hardy', abv: '11.5%', sz: '250 ml', p: '$13', note: 'French oak-aged English BW, 1968 recipe', s: 'b', ut: 4.1 }] },
@@ -298,7 +298,7 @@ window.ALL_CHOICES = [
   { slot: 'Oxbow Wine Grape Choice', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Oxbow Blue Noir', b: 'Oxbow', abv: '7.0%', sz: '500 ml', p: '$25', note: 'Blueberry + Pinot Noir (bottle)', s: 'b', ut: 3.9 }] },
   { slot: 'Special Event Fruited', cat: 'Fruit Beers', drunk: false, m: [{ n: 'Allagash Coolship Camerise', b: 'Allagash', abv: '6.7%', sz: '8 oz', p: '$10.50', note: 'Spontaneous ale w/ Quebec honeyberries', s: 'd', ut: 4.1 }, { n: 'LoverBeer BeerBrugna', b: 'LoverBeer', abv: '6.2%', sz: '330 ml', p: '$12', note: 'BA mixed-ferm w/ Damaschin plums', s: 'b', ut: 4.2 }, { n: 'LoverBeer BeerBera', b: 'LoverBeer', abv: '8.0%', sz: '330 ml', p: '$12', note: 'BA mixed-ferm w/ Barbera red wine grapes', s: 'b', ut: 4.2 }] },
   { slot: 'Bartender Draft - Fruit Beer', cat: 'Fruit Beers', drunk: true, m: [{ n: 'Allagash Coolship Camerise', b: 'Allagash', abv: '6.7%', sz: '8 oz', p: '$10.50', note: 'Spontaneous ale w/ Quebec honeyberries', s: 'd', ut: 4.1 }] },
-  { slot: 'Bartender Pkg - Fruit Beer', cat: 'Fruit Beers', drunk: true, m: [] },
+  { slot: 'Bartender Pkg - Fruit Beer', cat: 'Fruit Beers', drunk: false, m: [] },
   { slot: 'English Cider Choice', cat: 'Cider', drunk: true, m: [{ n: 'Samuel Smith Organic Cider', b: 'Sam Smith', abv: '5.0%', sz: '12 oz', p: '$10.00', note: 'Off-dry English organic cider', s: 'd', ut: 3.7 }] },
   { slot: 'Spanish Cider Choice', cat: 'Cider', drunk: false, m: [] },
   { slot: 'French Cider Choice', cat: 'Cider', drunk: false, m: [] },
@@ -306,6 +306,6 @@ window.ALL_CHOICES = [
   { slot: 'Choice Cider / Wine Hybrid', cat: 'Cider', drunk: false, m: [] },
   { slot: 'Milko Tube Choice', cat: 'Culturally Important', drunk: true, m: [] },
   { slot: 'Vault Pick Choice', cat: 'Culturally Important', drunk: false, m: [] },
-  { slot: 'Mass Choice', cat: 'Culturally Important', drunk: false, m: [] },
+  { slot: 'Mass Choice', cat: 'Culturally Important', drunk: true, m: [] },
   { slot: 'Staff Choice', cat: 'Culturally Important', drunk: false, m: [] },
 ];
