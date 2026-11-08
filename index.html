@@ -18,10 +18,11 @@
 </head>
 <body>
 <div id="root"></div>
-<script src="data.js?v=20261026"></script>
+<script src="data.js?v=20261108b"></script>
 <script type="text/babel" data-type="module">
 const { useState, useMemo, useEffect, useCallback } = React;
 const { BEERS, ALL_CHOICES, DRAFT_URL, BOTTLE_URL, DRAFT_DATE, BOTTLE_DATE, SHEET_DATE, BOTTLE_FIRST_SEEN } = window;
+const ALTERNATIVES = window.ALTERNATIVES || [];
 
 const T = 234;
 const STORAGE_KEY = 'nrct_drunk_overrides';
@@ -141,6 +142,9 @@ function App() {
       ? ALL_CHOICES.filter(c => !isChoiceDrunk(c.slot) && c.m && c.m.length > 0)
       : ALL_CHOICES.filter(c => !isChoiceDrunk(c.slot)),
     [cf, overrides]);
+
+  const altList = useMemo(() => ALTERNATIVES.filter(a => !isNamedDrunk(a.id)), [overrides]);
+  const altWith = altList.filter(a => a.alts.length > 0).length;
 
   const utLink = (b, n) => 'https://untappd.com/search?q=' + encodeURIComponent(b + ' ' + n);
 
@@ -284,6 +288,7 @@ function App() {
         <div style={{ display: 'flex', gap: 3, borderBottom: '2px solid #3d1a00', marginBottom: 0 }}>
           <button style={ts(tab === 'chalice')} onClick={() => setTab('chalice')}>Chalice Beers ({uc} available)</button>
           <button style={ts(tab === 'choices')} onClick={() => setTab('choices')}>Choices ({CM} w/ match / {CR} remaining)</button>
+          <button style={ts(tab === 'alts')} onClick={() => setTab('alts')}>Alternatives ({altWith} w/ match / {altList.length} unavailable)</button>
         </div>
         {tab === 'chalice' && (
           <div style={{ background: '#2a1200', borderRadius: '0 8px 8px 8px', padding: '14px' }}>
@@ -347,6 +352,39 @@ function App() {
               ))}
             </div>
             <div style={{ marginTop: 14, padding: '10px 13px', background: '#1a0a00', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Choice matches are style-based suggestions. Always confirm with your bartender!</div>
+          </div>
+        )}
+        {tab === 'alts' && (
+          <div style={{ background: '#2a1200', borderRadius: '0 8px 8px 8px', padding: '14px' }}>
+            <div style={{ background: '#1a2a3a', border: '1px solid #4a90d9', borderRadius: 9, padding: '9px 13px', marginBottom: 12, fontSize: 12, color: '#a8c8e8' }}><strong style={{ color: '#7ab8f5' }}>{altList.length} chalice beers</strong> have no current draft or bottle listing. Below are the closest style matches on the {DRAFT_DATE} draft menu and {BOTTLE_DATE} bottle list. <span style={{ background: '#4caf78', color: '#000', borderRadius: 3, padding: '1px 5px', fontSize: 10, fontWeight: 'bold' }}>CLOSE</span> = same style/type, <span style={{ background: '#c17f3a', color: '#000', borderRadius: 3, padding: '1px 5px', fontSize: 10, fontWeight: 'bold' }}>LOOSE</span> = nearest available, different in some way.</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+              {altList.map((a, i) => (
+                <div key={i} style={{ background: '#1a0a00', border: `1px solid ${a.alts.length > 0 ? '#4a90d9' : '#3d1a00'}`, borderRadius: 9, overflow: 'hidden' }}>
+                  <div style={{ background: a.alts.length > 0 ? '#1a2a3a' : '#251200', padding: '8px 13px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6 }}>
+                    <div><span style={{ fontWeight: 'bold', color: '#f5c842', fontSize: 12 }}>{pn(a.id)}</span><span style={{ marginLeft: 7, fontSize: 10, color: '#c9a87a', background: '#2a1200', padding: '1px 6px', borderRadius: 3 }}>{a.style}</span></div>
+                    <span style={{ background: a.alts.length > 0 ? '#4caf78' : '#3d1a00', color: a.alts.length > 0 ? '#000' : '#c9a87a', borderRadius: 4, padding: '2px 8px', fontSize: 10, fontWeight: 'bold' }}>{a.alts.length > 0 ? a.alts.length + ' alt' + (a.alts.length > 1 ? 's' : '') : 'No match on menu'}</span>
+                  </div>
+                  {a.alts.length > 0 && <div style={{ padding: '9px 13px', display: 'flex', flexDirection: 'column', gap: 7 }}>
+                    {a.alts.map((x, j) => (
+                      <div key={j} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap', borderBottom: j < a.alts.length - 1 ? '1px solid #2a1200' : 'none', paddingBottom: j < a.alts.length - 1 ? 7 : 0 }}>
+                        <div style={{ flex: '1 1 160px' }}>
+                          <div style={{ fontWeight: 'bold', fontSize: 12, color: '#f5e6c8', display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>{x.n}<span style={{ background: x.fit === 'close' ? '#4caf78' : '#c17f3a', color: '#000', borderRadius: 3, padding: '1px 5px', fontSize: 9, fontWeight: 'bold' }}>{x.fit === 'close' ? 'CLOSE' : 'LOOSE'}</span></div>
+                          <div style={{ fontSize: 10, color: '#c9a87a', marginTop: 1 }}>{x.b}</div>
+                          <div style={{ fontSize: 10, color: '#8ab8a8', marginTop: 2, fontStyle: 'italic' }}>{x.note}</div>
+                        </div>
+                        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                          <a href={utLink(x.b, x.n)} target="_blank" rel="noopener" style={{ textDecoration: 'none', color: '#f5c842', fontSize: 11 }}>★ Untappd</a>
+                          <span style={{ background: x.s === 'd' ? '#1a3a5a' : '#3a2800', color: x.s === 'd' ? '#7ab8f5' : '#d4a862', borderRadius: 4, padding: '2px 7px', fontSize: 10, fontWeight: 'bold' }}>{x.s === 'd' ? 'DRAFT' : 'BOTTLE'}</span>
+                          <span style={{ color: '#f5c842', fontWeight: 'bold', fontSize: 11 }}>{x.abv}</span><span style={{ color: '#c9a87a', fontSize: 10 }}>{x.sz}</span><span style={{ color: '#4caf78', fontSize: 11, fontWeight: 'bold' }}>{x.p}</span>
+                          <button onClick={() => setLogFor({ kind: 'named', id: a.id, name: pn(a.id), suggested: x.n })} style={btnDrunk}>✓ DRUNK</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 14, padding: '10px 13px', background: '#1a0a00', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Alternatives are style-based suggestions only — confirm with your bartender whether a substitute counts. ✓ DRUNK logs the original chalice beer.</div>
           </div>
         )}
         <div style={{ marginTop: 12, padding: '10px 13px', background: '#2a1200', borderRadius: 9, fontSize: 10, color: '#6b4020' }}><strong style={{ color: '#c9a87a' }}>Note:</strong> Only spreadsheet-eligible beers shown. Confirm availability with staff. Local "drunk" marks are saved on this device only — sync to the spreadsheet to keep them.</div>
